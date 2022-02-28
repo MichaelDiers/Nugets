@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'Md.GoogleCloudPubSub/Md.GoogleCloudPubSub/**'
+      - 'Md.GoogleCloudPubSub/**'
       - '.github/workflows/Md.GoogleCloudPubSub.yaml'
   workflow_dispatch:
 env:

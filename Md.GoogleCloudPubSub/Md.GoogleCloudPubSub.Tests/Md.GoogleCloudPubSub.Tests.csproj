@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Md.Google.Cloud.PubSub\Md.GoogleCloudPubSub.csproj" />
+    <ProjectReference Include="..\Md.GoogleCloudPubSub\Md.GoogleCloudPubSub.csproj" />
   </ItemGroup>
 
 </Project>
