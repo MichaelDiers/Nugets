@@ -2,6 +2,7 @@
 {
     using System;
     using Md.GoogleCloudPubSub.Contracts.Messages;
+    using Newtonsoft.Json;
 
     /// <summary>
     ///     Specifies a pub/sub message.
@@ -20,12 +21,18 @@
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(processId));
             }
 
+            if (!Guid.TryParse(processId, out var guid) || guid == Guid.Empty)
+            {
+                throw new ArgumentException("Value is not a valid guid.", nameof(processId));
+            }
+
             this.ProcessId = processId;
         }
 
         /// <summary>
         ///     Gets the id of the business process.
         /// </summary>
+        [JsonProperty("processId", Required = Required.Always, Order = 1)]
         public string ProcessId { get; }
     }
 }

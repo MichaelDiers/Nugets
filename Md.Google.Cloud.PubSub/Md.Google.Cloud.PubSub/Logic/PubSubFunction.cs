@@ -16,13 +16,14 @@
     /// </summary>
     /// <typeparam name="TMessage">The type of the pub/sub messages.</typeparam>
     /// <typeparam name="TIMessage">The interface that is implemented by <typeparamref name="TMessage" />.</typeparam>
-    public abstract class PubSubFunction<TMessage, TIMessage> : ICloudEventFunction<MessagePublishedData>
+    /// <typeparam name="TCategoryName">The type whose name will be the logger's category name.</typeparam>
+    public abstract class PubSubFunction<TMessage, TIMessage, TCategoryName> : ICloudEventFunction<MessagePublishedData>
         where TMessage : class, TIMessage where TIMessage : IMessage
     {
         /// <summary>
         ///     An error logger.
         /// </summary>
-        private readonly ILogger<PubSubFunction<TMessage, TIMessage>> logger;
+        private readonly ILogger<TCategoryName> logger;
 
         /// <summary>
         ///     Handles the cloud event for messages of type <typeparamref name="TIMessage" />.
@@ -30,7 +31,7 @@
         private readonly IPubSubProvider<TIMessage> provider;
 
         /// <summary>
-        ///     Creates a new instance of <see cref="PubSubFunction{TMessage,TIMessage}" />.
+        ///     Creates a new instance of <see cref="PubSubFunction{TMessage,TIMessage,TCategoryName}" />.
         /// </summary>
         /// <param name="logger">An error logger.</param>
         /// <param name="provider">Handles the cloud event for messages of type <typeparamref name="TIMessage" />.</param>
@@ -38,10 +39,7 @@
         ///     Is thrown if <paramref name="logger" /> or <paramref name="provider" /> is
         ///     null.
         /// </exception>
-        protected PubSubFunction(
-            ILogger<PubSubFunction<TMessage, TIMessage>> logger,
-            IPubSubProvider<TIMessage> provider
-        )
+        protected PubSubFunction(ILogger<TCategoryName> logger, IPubSubProvider<TIMessage> provider)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.provider = provider ?? throw new ArgumentNullException(nameof(provider));

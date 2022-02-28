@@ -10,19 +10,20 @@
     ///     Handles the pub/sub messages of type <typeparamref name="TMessage" />.
     /// </summary>
     /// <typeparam name="TMessage">The type of the messages.</typeparam>
-    public abstract class PubSubProvider<TMessage> : IPubSubProvider<TMessage> where TMessage : IMessage
+    /// <typeparam name="TCategoryName">The type whose name will be the logger's category name.</typeparam>
+    public abstract class PubSubProvider<TMessage, TCategoryName> : IPubSubProvider<TMessage> where TMessage : IMessage
     {
         /// <summary>
         ///     An error logger.
         /// </summary>
-        private readonly ILogger logger;
+        private readonly ILogger<TCategoryName> logger;
 
         /// <summary>
-        ///     Creates a new instance of <see cref="PubSubProvider{TMessage}" />.
+        ///     Creates a new instance of <see cref="PubSubProvider{TMessage, TCategoryName}" />.
         /// </summary>
         /// <param name="logger">An error logger.</param>
         /// <exception cref="ArgumentNullException">Is thrown if <paramref name="logger" /> is null.</exception>
-        protected PubSubProvider(ILogger logger)
+        protected PubSubProvider(ILogger<TCategoryName> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
