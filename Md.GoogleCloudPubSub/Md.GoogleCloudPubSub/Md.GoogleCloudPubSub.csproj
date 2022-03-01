@@ -10,7 +10,7 @@
 	<ItemGroup>
 		<PackageReference Include="Google.Cloud.Functions.Hosting" Version="1.0.0" />
 		<PackageReference Include="Google.Events.Protobuf" Version="1.0.0" />
-		<PackageReference Include="Md.GoogleCloud.Base" Version="1.0.3" />
+		<PackageReference Include="Md.GoogleCloud.Base" Version="1.0.5" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 
