@@ -1,9 +1,9 @@
-﻿namespace Md.GoogleCloudPubSub.Base.Logic
+﻿namespace Md.GoogleCloud.Base.Logic
 {
     using System;
     using System.Threading.Tasks;
-    using Md.GoogleCloudPubSub.Base.Contracts.Logic;
-    using Md.GoogleCloudPubSub.Base.Contracts.Messages;
+    using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.GoogleCloud.Base.Contracts.Messages;
     using Microsoft.Extensions.Logging;
 
     /// <summary>

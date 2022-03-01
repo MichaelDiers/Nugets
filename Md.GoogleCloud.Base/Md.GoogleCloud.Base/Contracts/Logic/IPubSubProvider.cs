@@ -1,8 +1,8 @@
-﻿namespace Md.GoogleCloudPubSub.Base.Contracts.Logic
+﻿namespace Md.GoogleCloud.Base.Contracts.Logic
 {
     using System;
     using System.Threading.Tasks;
-    using Md.GoogleCloudPubSub.Base.Contracts.Messages;
+    using Md.GoogleCloud.Base.Contracts.Messages;
 
     /// <summary>
     ///     Handles the pub/sub messages of type <typeparamref name="TMessage" />.

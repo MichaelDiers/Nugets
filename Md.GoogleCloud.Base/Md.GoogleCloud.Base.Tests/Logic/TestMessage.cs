@@ -1,7 +1,7 @@
-﻿namespace Md.GoogleCloudPubSub.Base.Tests.Logic
+﻿namespace Md.GoogleCloud.Base.Tests.Logic
 {
     using System;
-    using Md.GoogleCloudPubSub.Base.Messages;
+    using Md.GoogleCloud.Base.Messages;
     using Newtonsoft.Json;
 
     /// <summary>

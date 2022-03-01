@@ -1,9 +1,9 @@
-﻿namespace Md.GoogleCloudPubSub.Base.Tests.Logic
+﻿namespace Md.GoogleCloud.Base.Tests.Logic
 {
     using System;
-    using Md.GoogleCloudPubSub.Base.Contracts.Logic;
-    using Md.GoogleCloudPubSub.Base.Logic;
-    using Md.GoogleCloudPubSub.Base.Tests.Mocks;
+    using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.GoogleCloud.Base.Logic;
+    using Md.GoogleCloud.Base.Tests.Mocks;
     using Xunit;
 
     /// <summary>

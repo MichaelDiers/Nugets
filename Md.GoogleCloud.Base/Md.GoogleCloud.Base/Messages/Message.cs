@@ -1,7 +1,7 @@
-﻿namespace Md.GoogleCloudPubSub.Base.Messages
+﻿namespace Md.GoogleCloud.Base.Messages
 {
     using System;
-    using Md.GoogleCloudPubSub.Base.Contracts.Messages;
+    using Md.GoogleCloud.Base.Contracts.Messages;
     using Newtonsoft.Json;
 
     /// <summary>

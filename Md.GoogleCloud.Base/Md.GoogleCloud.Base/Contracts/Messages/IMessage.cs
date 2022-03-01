@@ -1,4 +1,4 @@
-﻿namespace Md.GoogleCloudPubSub.Base.Contracts.Messages
+﻿namespace Md.GoogleCloud.Base.Contracts.Messages
 {
     /// <summary>
     ///     Specifies a pub/sub message.

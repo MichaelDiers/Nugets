@@ -1,4 +1,4 @@
-﻿namespace Md.GoogleCloudPubSub.Base.Tests.Mocks
+﻿namespace Md.GoogleCloud.Base.Tests.Mocks
 {
     using System;
     using Microsoft.Extensions.Logging;
