@@ -1,4 +1,4 @@
-name: Md.GoogleCloudPubSub.yaml
+name: Md.GoogleCloud.Base.yaml
 on:
   push:
     branches:
