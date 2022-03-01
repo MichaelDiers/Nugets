@@ -1,8 +1,8 @@
 ﻿namespace Md.GoogleCloudPubSub.Tests.Messages
 {
     using System;
-    using Md.GoogleCloudPubSub.Base.Contracts.Messages;
-    using Md.GoogleCloudPubSub.Base.Messages;
+    using Md.GoogleCloud.Base.Contracts.Messages;
+    using Md.GoogleCloud.Base.Messages;
     using Xunit;
 
     /// <summary>

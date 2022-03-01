@@ -1,7 +1,7 @@
 ﻿namespace Md.GoogleCloudPubSub.Tests.Logic
 {
     using System;
-    using Md.GoogleCloudPubSub.Base.Contracts.Logic;
+    using Md.GoogleCloud.Base.Contracts.Logic;
     using Md.GoogleCloudPubSub.Logic;
     using Microsoft.Extensions.Logging;
 
