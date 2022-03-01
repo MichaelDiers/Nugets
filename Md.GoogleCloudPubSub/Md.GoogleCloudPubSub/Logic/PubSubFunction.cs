@@ -6,8 +6,8 @@
     using CloudNative.CloudEvents;
     using Google.Cloud.Functions.Framework;
     using Google.Events.Protobuf.Cloud.PubSub.V1;
-    using Md.GoogleCloudPubSub.Contracts.Logic;
-    using Md.GoogleCloudPubSub.Contracts.Messages;
+    using Md.GoogleCloudPubSub.Base.Contracts.Logic;
+    using Md.GoogleCloudPubSub.Base.Contracts.Messages;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
 

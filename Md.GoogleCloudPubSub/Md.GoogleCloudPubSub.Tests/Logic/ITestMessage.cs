@@ -1,6 +1,6 @@
 ﻿namespace Md.GoogleCloudPubSub.Tests.Logic
 {
-    using Md.GoogleCloudPubSub.Contracts.Messages;
+    using Md.GoogleCloudPubSub.Base.Contracts.Messages;
 
     /// <summary>
     ///     Specifies a test message.

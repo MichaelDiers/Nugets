@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Md.GoogleCloudPubSub.Logic;
+    using Md.GoogleCloudPubSub.Base.Logic;
     using Microsoft.Extensions.Logging;
     using Xunit;
 
