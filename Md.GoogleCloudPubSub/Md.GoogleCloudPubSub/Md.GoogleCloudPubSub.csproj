@@ -3,14 +3,14 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<Authors>MichaelDiers</Authors>
-		<RepositoryUrl>https://github.com/MichaelDiers/TabletopGameAdmin.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/MichaelDiers/Nugets.git</RepositoryUrl>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Google.Cloud.Functions.Hosting" Version="1.0.0" />
 		<PackageReference Include="Google.Events.Protobuf" Version="1.0.0" />
-		<PackageReference Include="Md.GoogleCloud.Base" Version="1.0.5" />
+		<PackageReference Include="Md.GoogleCloud.Base" Version="1.1.9" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 
