@@ -7,7 +7,7 @@
     /// <summary>
     ///     Access to the database.
     /// </summary>
-    public class Database : DatabaseBase, IDatabase
+    public class Database : ReadonlyDatabase, IDatabase
     {
         /// <summary>
         ///     Creates a new instance of <see cref="Database" />.

@@ -12,7 +12,7 @@ env:
   CSPROJ_FILE: 'Md.GoogleCloudFirestore/Md.GoogleCloudFirestore/Md.GoogleCloudFirestore.csproj'
   PACKAGE_FILE_BASE: 'Md.GoogleCloudFirestore/Md.GoogleCloudFirestore/bin'
   PACKAGE_SOURCE: 'https://nuget.pkg.github.com/MichaelDiers'
-  PACKAGE_VERSION: '1.0.$GITHUB_RUN_NUMBER'
+  PACKAGE_VERSION: '1.1.$GITHUB_RUN_NUMBER'
   SLN_FILE: 'Md.GoogleCloudFirestore/Md.GoogleCloudFirestore.sln'
   NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
   NUGET_USERNAME: MichaelDiers

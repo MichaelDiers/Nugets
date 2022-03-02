@@ -12,7 +12,7 @@ env:
   CSPROJ_FILE: 'Md.GoogleCloudPubSub/Md.GoogleCloudPubSub/Md.GoogleCloudPubSub.csproj'
   PACKAGE_FILE_BASE: 'Md.GoogleCloudPubSub/Md.GoogleCloudPubSub/bin'
   PACKAGE_SOURCE: 'https://nuget.pkg.github.com/MichaelDiers'
-  PACKAGE_VERSION: '1.0.$GITHUB_RUN_NUMBER'
+  PACKAGE_VERSION: '1.1.$GITHUB_RUN_NUMBER'
   SLN_FILE: 'Md.GoogleCloudPubSub/Md.GoogleCloudPubSub.sln'
   NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
   NUGET_USERNAME: MichaelDiers
