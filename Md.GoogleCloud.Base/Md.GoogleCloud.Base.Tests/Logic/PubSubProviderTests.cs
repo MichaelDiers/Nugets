@@ -12,13 +12,6 @@
     public class PubSubProviderTests
     {
         [Fact]
-        public void CtorThrowsArgumentNullExceptionIfLoggerIsNull()
-        {
-            Assert.Throws<ArgumentNullException>(
-                () => new PubSubProviderImplementation(null, new TestMessage(Guid.NewGuid().ToString(), "data")));
-        }
-
-        [Fact]
         public async void HandleAsync()
         {
             var id = Guid.NewGuid().ToString();
@@ -28,15 +21,6 @@
             var provider = new PubSubProviderImplementation(logger, new TestMessage(id, data));
             await provider.HandleAsync(new TestMessage(id, data));
             Assert.False(logger.HasErrors);
-        }
-
-        [Fact]
-        public async void HandleAsyncThrowsArgumentNullException()
-        {
-            var provider = new PubSubProviderImplementation(
-                new LoggerMock<PubSubProviderImplementation>(),
-                new TestMessage(Guid.NewGuid().ToString(), "data"));
-            await Assert.ThrowsAnyAsync<ArgumentNullException>(() => provider.HandleAsync(null));
         }
 
         [Fact]
