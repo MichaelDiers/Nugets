@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<Authors>MichaelDiers</Authors>
-		<RepositoryUrl>https://github.com/MichaelDiers/TabletopGameAdmin.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/MichaelDiers/Nugets.git</RepositoryUrl>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
