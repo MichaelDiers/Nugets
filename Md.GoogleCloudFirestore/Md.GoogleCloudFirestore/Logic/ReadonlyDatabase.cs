@@ -20,6 +20,22 @@
         }
 
         /// <summary>
+        ///     Read a document of a database collection by its id.
+        /// </summary>
+        /// <param name="documentId">The id of the document.</param>
+        /// <returns>A <see cref="Task" /> whose is result is a <see cref="IDictionary{TKey,TValue}" />.</returns>
+        public async Task<IDictionary<string, object>?> ReadByDocumentId(string documentId)
+        {
+            var snapshot = await this.Collection().Document(documentId).GetSnapshotAsync();
+            if (snapshot.Exists)
+            {
+                return snapshot.ToDictionary();
+            }
+
+            return null;
+        }
+
+        /// <summary>
         ///     Read all entries of a database collection.
         /// </summary>
         /// <param name="fieldPath">Defines the field path.</param>
