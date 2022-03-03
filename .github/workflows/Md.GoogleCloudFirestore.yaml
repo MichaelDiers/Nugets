@@ -34,9 +34,7 @@ jobs:
           echo $(sed -e "s/\${USERNAME}/${{ env.NUGET_USERNAME }}/" -e "s@\${TOKEN}@${{ secrets.GITHUB_TOKEN }}@" ${{ env.NUGET_CONFIG }}) > ${{ env.CSPROJ_NUGET }}
           cp ${{ env.CSPROJ_NUGET }} ${{ env.CSPROJ_TEST_NUGET }}
       - name: build
-        run: dotnet build ${{ env.SLN_FILE }} --configuration "${{ env.CONFIG }}"
-      - name: test
-        run: dotnet test ${{ env.SLN_FILE }} --configuration "${{ env.CONFIG }}" --no-build
+        run: dotnet build ${{ env.SLN_FILE }} --configuration "${{ env.CONFIG }}"      
       - name: pack
         run: dotnet pack "${{ env.CSPROJ_FILE }}" -c "${{ env.CONFIG }}" -p:PackageVersion=${{ env.PACKAGE_VERSION }} --no-build
       - name: publish
