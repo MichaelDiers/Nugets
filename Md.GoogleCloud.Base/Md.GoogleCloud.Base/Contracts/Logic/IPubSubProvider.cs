@@ -17,5 +17,13 @@
         /// <returns>A <see cref="Task" />.</returns>
         /// <exception cref="ArgumentNullException">Is thrown if <paramref name="message" /> is null.</exception>
         Task HandleAsync(TMessage message);
+
+        /// <summary>
+        ///     Log an error message.
+        /// </summary>
+        /// <param name="ex">The raised exception.</param>
+        /// <param name="message">An error message.</param>
+        /// <returns>A <see cref="Task" />.</returns>
+        Task LogErrorAsync(Exception ex, string message);
     }
 }
