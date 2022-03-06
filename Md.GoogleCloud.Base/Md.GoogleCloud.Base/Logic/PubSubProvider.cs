@@ -56,6 +56,7 @@
         /// <returns>A <see cref="Task" />.</returns>
         public Task LogErrorAsync(Exception ex, string message)
         {
+            this.logger.LogError(ex, message);
             return Task.CompletedTask;
         }
 
