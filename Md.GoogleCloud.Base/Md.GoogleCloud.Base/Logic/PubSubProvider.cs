@@ -36,10 +36,7 @@
         /// <exception cref="ArgumentNullException">Is thrown if <paramref name="message" /> is null.</exception>
         public async Task HandleAsync(TMessage message)
         {
-            if (message == null)
-            {
-                throw new ArgumentNullException(nameof(message));
-            }
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
             try
             {
@@ -49,6 +46,17 @@
             {
                 this.logger.LogError(e, $"Unexpected error! (processId: {message.ProcessId})");
             }
+        }
+
+        /// <summary>
+        ///     Log an error message.
+        /// </summary>
+        /// <param name="ex">The raised exception.</param>
+        /// <param name="message">An error message.</param>
+        /// <returns>A <see cref="Task" />.</returns>
+        public Task LogErrorAsync(Exception ex, string message)
+        {
+            return Task.CompletedTask;
         }
 
         /// <summary>
