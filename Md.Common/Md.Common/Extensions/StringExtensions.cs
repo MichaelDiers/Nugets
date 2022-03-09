@@ -47,5 +47,20 @@
 
             throw new ArgumentException($"Value {s} is not a valid guid.", nameof(s));
         }
+
+        /// <summary>
+        ///     Check if the given string is not null or whitespace.
+        /// </summary>
+        /// <param name="s">The value to be checked.</param>
+        /// <returns>The <paramref name="s" /> or throws an exception if not a valid string.</returns>
+        public static string ValidateIsNotNullOrWhitespace(this string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(s));
+            }
+
+            return s;
+        }
     }
 }

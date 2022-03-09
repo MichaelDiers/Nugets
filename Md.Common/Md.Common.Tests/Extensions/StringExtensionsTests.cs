@@ -46,5 +46,20 @@
             var guid = Guid.NewGuid().ToString();
             Assert.Equal(guid, guid.ValidateIsAGuid());
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void StringIsInvalid(string s)
+        {
+            Assert.Throws<ArgumentException>(s.ValidateIsNotNullOrWhitespace);
+        }
+
+        [Fact]
+        public void StringIsValid()
+        {
+            const string s = "valid";
+            Assert.Equal(s, s.ValidateIsNotNullOrWhitespace());
+        }
     }
 }
