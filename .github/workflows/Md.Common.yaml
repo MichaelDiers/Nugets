@@ -17,7 +17,7 @@ jobs:
       PACKAGE_SOURCE: 'https://nuget.pkg.github.com/MichaelDiers'
       PACKAGE_VERSION: '1.1.$GITHUB_RUN_NUMBER'
       NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
-      CSPROJ_FILE: '${{ env.BASE_NAME }}/${{ env.BASE_NAME }}/${{ env.BASE_NAME }}.csproj'
+      CSPROJ_FILE: '${{ BASE_NAME }}/${{ BASE_NAME }}/${{ BASE_NAME }}.csproj'
       PACKAGE_FILE_BASE: '${{ env.BASE_NAME }}/${{ env.BASE_NAME }}/bin'
       SLN_FILE: '${{ env.BASE_NAME }}/${{ env.BASE_NAME }}.sln'
       NUGET_USERNAME: MichaelDiers
