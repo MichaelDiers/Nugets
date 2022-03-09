@@ -8,22 +8,20 @@ on:
       - '.github/workflows/Md.Common.yaml'
   workflow_dispatch:
 env:
-  BASE_NAME: Md.Common  
+  CONFIG: Release
+  CSPROJ_FILE: 'Md.Common/Md.Common/Md.Common.csproj'
+  PACKAGE_FILE_BASE: 'Md.Common/Md.Common/bin'
+  PACKAGE_SOURCE: 'https://nuget.pkg.github.com/MichaelDiers'
+  PACKAGE_VERSION: '1.1.$GITHUB_RUN_NUMBER'
+  SLN_FILE: 'Md.Common/Md.Common.sln'
+  NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
+  NUGET_USERNAME: MichaelDiers
+  NUGET_CONFIG: '.github/workflows/Generic-Nuget.config'
+  CSPROJ_NUGET: 'Md.Common/Md.Common/nuget.config'
+  CSPROJ_TEST_NUGET: 'Md.Common/Md.Common.Tests/nuget.config' 
 jobs:
   prod:
     runs-on: ubuntu-latest
-    env:
-      CONFIG: Release
-      PACKAGE_SOURCE: 'https://nuget.pkg.github.com/MichaelDiers'
-      PACKAGE_VERSION: '1.1.$GITHUB_RUN_NUMBER'
-      NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
-      CSPROJ_FILE: '${{ BASE_NAME }}/${{ BASE_NAME }}/${{ BASE_NAME }}.csproj'
-      PACKAGE_FILE_BASE: '${{ env.BASE_NAME }}/${{ env.BASE_NAME }}/bin'
-      SLN_FILE: '${{ env.BASE_NAME }}/${{ env.BASE_NAME }}.sln'
-      NUGET_USERNAME: MichaelDiers
-      NUGET_CONFIG: '.github/workflows/Generic-Nuget.config'
-      CSPROJ_NUGET: '${{ env.BASE_NAME }}/${{ env.BASE_NAME }}/nuget.config'
-      CSPROJ_TEST_NUGET: '${{ env.BASE_NAME }}/${{ env.BASE_NAME }}.Tests/nuget.config' 
     steps:
       - name: checkout source
         uses: actions/checkout@v2
