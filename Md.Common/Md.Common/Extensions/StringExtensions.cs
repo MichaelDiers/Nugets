@@ -45,7 +45,7 @@
                 return s;
             }
 
-            throw new ArgumentException($"Value {s} is not a valid guid.", nameof(s));
+            throw new ArgumentException($"Value {s} is not a valid email.", nameof(s));
         }
 
         /// <summary>
