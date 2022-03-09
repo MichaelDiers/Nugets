@@ -12,6 +12,27 @@
         [Theory]
         [InlineData(null)]
         [InlineData("")]
+        [InlineData("@bar.example")]
+        [InlineData("foo-bar2345@")]
+        [InlineData("foo-bar2345@bar")]
+        public void EmailIsInvalid(string email)
+        {
+            Assert.Throws<ArgumentException>(email.ValidateIsAnEmail);
+        }
+
+        [Theory]
+        [InlineData("foo@bar.de")]
+        [InlineData("foo@bar.co.uk")]
+        [InlineData("foo-bar@bar.example")]
+        [InlineData("foo-bar2345@bar.example")]
+        public void EmailIsValid(string email)
+        {
+            Assert.Equal(email, email.ValidateIsAnEmail());
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
         [InlineData("invalid")]
         [InlineData("00000000-0000-0000-0000-000000000000")]
         public void GuidIsInvalid(string guid)

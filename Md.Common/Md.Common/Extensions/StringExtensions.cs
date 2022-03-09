@@ -1,6 +1,7 @@
 ﻿namespace Md.Common.Extensions
 {
     using System;
+    using System.Text.RegularExpressions;
 
     /// <summary>
     ///     Extensions for <see cref="string" />.
@@ -20,6 +21,26 @@
             }
 
             if (Guid.TryParse(s, out var guid) && guid != Guid.Empty)
+            {
+                return s;
+            }
+
+            throw new ArgumentException($"Value {s} is not a valid guid.", nameof(s));
+        }
+
+        /// <summary>
+        ///     Check if the given string is an email.
+        /// </summary>
+        /// <param name="s">The value to be checked.</param>
+        /// <returns>The <paramref name="s" /> or throws an exception if not a valid email.</returns>
+        public static string ValidateIsAnEmail(this string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(s));
+            }
+
+            if (Regex.IsMatch(s, ".+@.+[.].+"))
             {
                 return s;
             }
