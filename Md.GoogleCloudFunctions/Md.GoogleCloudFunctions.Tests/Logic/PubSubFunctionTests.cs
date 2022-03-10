@@ -59,10 +59,10 @@
         [InlineData(" ", "Empty incoming json message (Parameter 'TextData')")]
         [InlineData("{}", "Value cannot be null or whitespace. (Parameter 'processId')")]
         [InlineData("{processId:\"\"}", "Value cannot be null or whitespace. (Parameter 'processId')")]
-        [InlineData("{processId:\"a\"}", "Value is not a valid guid. (Parameter 'processId')")]
+        [InlineData("{processId:\"a\"}", "Value a is not a valid guid. (Parameter 'processId')")]
         [InlineData(
             "{processId:\"00000000-0000-0000-0000-000000000000\"}",
-            "Value is not a valid guid. (Parameter 'processId')")]
+            "Value 00000000-0000-0000-0000-000000000000 is not a valid guid. (Parameter 'processId')")]
         [InlineData(
             "{processId:\"f7f7ea9d-96dd-4b26-8c30-91ebb3059eb4\"}",
             "Required property 'data' not found in JSON. Path '', line 1, position 50.")]
