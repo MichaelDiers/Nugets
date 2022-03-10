@@ -18,7 +18,8 @@
             const string data = "data";
 
             var logger = new LoggerMock<PubSubProviderImplementation>();
-            var provider = new PubSubProviderImplementation(logger, new TestMessage(id, data));
+            var provider =
+                new PubSubProviderImplementation(logger, new TestMessage(id, data)) as IPubSubProvider<TestMessage>;
             await provider.HandleAsync(new TestMessage(id, data));
             Assert.False(logger.HasErrors);
         }
@@ -30,6 +31,19 @@
                 new PubSubProviderImplementation(
                     new LoggerMock<PubSubProviderImplementation>(),
                     new TestMessage(Guid.NewGuid().ToString(), "data")));
+        }
+
+        [Fact]
+        public async void LogErrorAsync()
+        {
+            var id = Guid.NewGuid().ToString();
+            const string data = "data";
+
+            var logger = new LoggerMock<PubSubProviderImplementation>();
+            var provider =
+                new PubSubProviderImplementation(logger, new TestMessage(id, data)) as IPubSubProvider<TestMessage>;
+            await provider.LogErrorAsync(new Exception("foo"), "bar");
+            Assert.True(logger.HasErrors);
         }
     }
 }

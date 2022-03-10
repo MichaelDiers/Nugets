@@ -36,7 +36,10 @@
         /// <exception cref="ArgumentNullException">Is thrown if <paramref name="message" /> is null.</exception>
         public async Task HandleAsync(TMessage message)
         {
-            if (message == null) throw new ArgumentNullException(nameof(message));
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
 
             try
             {

@@ -1,6 +1,6 @@
 ﻿namespace Md.GoogleCloud.Base.Logic
 {
-    using System;
+    using Md.Common.Extensions;
     using Md.GoogleCloud.Base.Contracts.Logic;
 
     /// <summary>
@@ -15,18 +15,8 @@
         /// <param name="collectionName">The name of the collection.</param>
         public DatabaseConfiguration(string projectId, string collectionName)
         {
-            if (string.IsNullOrWhiteSpace(projectId))
-            {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(projectId));
-            }
-
-            if (string.IsNullOrWhiteSpace(collectionName))
-            {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(collectionName));
-            }
-
-            this.ProjectId = projectId;
-            this.CollectionName = collectionName;
+            this.ProjectId = projectId.ValidateIsNotNullOrWhitespace();
+            this.CollectionName = collectionName.ValidateIsNotNullOrWhitespace();
         }
 
         /// <summary>
