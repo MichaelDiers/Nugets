@@ -27,9 +27,7 @@
         public async Task<IDictionary<string, object>?> ReadByDocumentIdAsync(string documentId)
         {
             var snapshot = await this.Collection().Document(documentId).GetSnapshotAsync();
-            if (snapshot.Exists) return snapshot.ToDictionary();
-
-            return null;
+            return snapshot.Exists ? snapshot.ToDictionary() : null;
         }
 
         /// <summary>
@@ -44,10 +42,9 @@
         public async Task<IEnumerable<IDictionary<string, object>>> ReadManyAsync(string fieldPath, object value)
         {
             var snapshot = await this.Collection().WhereEqualTo(fieldPath, value).GetSnapshotAsync();
-            if (snapshot?.Any() == true)
-                return snapshot.Documents.Where(doc => doc.Exists).Select(doc => doc.ToDictionary()).ToArray();
-
-            return Enumerable.Empty<IDictionary<string, object>>();
+            return snapshot?.Any() == true
+                ? snapshot.Documents.Where(doc => doc.Exists).Select(doc => doc.ToDictionary()).ToArray()
+                : Enumerable.Empty<IDictionary<string, object>>();
         }
 
         /// <summary>
@@ -62,7 +59,10 @@
             if (snapshot?.Any() == true)
             {
                 var documentSnapshot = snapshot.Documents.FirstOrDefault();
-                if (documentSnapshot?.Exists == true) return documentSnapshot.ToDictionary();
+                if (documentSnapshot?.Exists == true)
+                {
+                    return documentSnapshot.ToDictionary();
+                }
             }
 
             return null;

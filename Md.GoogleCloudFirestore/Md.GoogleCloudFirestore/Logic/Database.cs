@@ -27,7 +27,7 @@
         public async Task InsertAsync(string documentId, IToDictionary data)
         {
             var documentReference = this.Collection().Document(documentId);
-            await this.InsertAsync(documentReference, data);
+            await InsertAsync(documentReference, data);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@
         public async Task InsertAsync(IToDictionary data)
         {
             var documentReference = this.Collection().Document();
-            await this.InsertAsync(documentReference, data);
+            await InsertAsync(documentReference, data);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@
         /// <param name="documentReference">The document reference used for inserting.</param>
         /// <param name="data">The data to be saved.</param>
         /// <returns>A <see cref="Task" />.</returns>
-        private async Task InsertAsync(DocumentReference documentReference, IToDictionary data)
+        private static async Task InsertAsync(DocumentReference documentReference, IToDictionary data)
         {
             var document = data.ToDictionary();
             document.Add("created", FieldValue.ServerTimestamp);
