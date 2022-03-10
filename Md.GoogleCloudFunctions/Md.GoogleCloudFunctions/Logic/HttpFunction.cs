@@ -46,7 +46,7 @@
             catch (Exception e)
             {
                 this.logger.LogError(e, "An unhandled error occurred.");
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             }
         }
 
@@ -243,7 +243,7 @@
         /// <returns>A <see cref="Task" />.</returns>
         protected virtual async Task SetJsonResponse(HttpContext context, HttpStatusCode statusCode, string json)
         {
-            context.Response.StatusCode = (int)statusCode;
+            context.Response.StatusCode = (int) statusCode;
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(json);
         }
@@ -257,7 +257,7 @@
         /// <returns>A <see cref="Task" />.</returns>
         protected virtual async Task SetTextPlainResponse(HttpContext context, HttpStatusCode statusCode, string text)
         {
-            context.Response.StatusCode = (int)statusCode;
+            context.Response.StatusCode = (int) statusCode;
             context.Response.ContentType = "text/plain";
             await context.Response.WriteAsync(text);
         }

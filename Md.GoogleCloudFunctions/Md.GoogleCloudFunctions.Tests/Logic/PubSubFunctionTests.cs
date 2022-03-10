@@ -95,13 +95,7 @@
 
             var function = new PubSubFunctionImplementation(logger, provider);
 
-            var raw = new MessagePublishedData
-            {
-                Message = new PubsubMessage
-                {
-                    TextData = json
-                }
-            };
+            var raw = new MessagePublishedData {Message = new PubsubMessage {TextData = json}};
 
             var cloudEvent = new CloudEvent
             {

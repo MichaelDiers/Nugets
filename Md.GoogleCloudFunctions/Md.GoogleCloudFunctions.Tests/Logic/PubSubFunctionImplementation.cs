@@ -5,8 +5,8 @@
     using Md.GoogleCloudFunctions.Logic;
     using Microsoft.Extensions.Logging;
 
-    internal class
-        PubSubFunctionImplementation : PubSubFunction<TestMessage, ITestMessage, PubSubFunctionImplementation>
+    internal class PubSubFunctionImplementation
+        : PubSubFunction<TestMessage, ITestMessage, PubSubFunctionImplementation>
     {
         /// <summary>
         ///     Creates a new instance of <see cref="PubSubFunction{TMessage,TIMessage,TCategoryName}" />.
