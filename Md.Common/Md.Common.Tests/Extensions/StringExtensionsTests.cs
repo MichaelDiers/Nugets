@@ -17,7 +17,7 @@
         [InlineData("foo-bar2345@bar")]
         public void EmailIsInvalid(string email)
         {
-            Assert.Throws<ArgumentException>(email.ValidateIsAnEmail);
+            Assert.Throws<ArgumentException>(() => email.ValidateIsAnEmail(nameof(email)));
         }
 
         [Theory]
@@ -27,7 +27,7 @@
         [InlineData("foo-bar2345@bar.example")]
         public void EmailIsValid(string email)
         {
-            Assert.Equal(email, email.ValidateIsAnEmail());
+            Assert.Equal(email, email.ValidateIsAnEmail(nameof(email)));
         }
 
         [Theory]
@@ -37,14 +37,14 @@
         [InlineData("00000000-0000-0000-0000-000000000000")]
         public void GuidIsInvalid(string guid)
         {
-            Assert.Throws<ArgumentException>(guid.ValidateIsAGuid);
+            Assert.Throws<ArgumentException>(() => guid.ValidateIsAGuid(nameof(guid)));
         }
 
         [Fact]
         public void GuidIsValid()
         {
             var guid = Guid.NewGuid().ToString();
-            Assert.Equal(guid, guid.ValidateIsAGuid());
+            Assert.Equal(guid, guid.ValidateIsAGuid(nameof(guid)));
         }
 
         [Theory]
@@ -52,14 +52,14 @@
         [InlineData("")]
         public void StringIsInvalid(string s)
         {
-            Assert.Throws<ArgumentException>(s.ValidateIsNotNullOrWhitespace);
+            Assert.Throws<ArgumentException>(() => s.ValidateIsNotNullOrWhitespace(nameof(s)));
         }
 
         [Fact]
         public void StringIsValid()
         {
             const string s = "valid";
-            Assert.Equal(s, s.ValidateIsNotNullOrWhitespace());
+            Assert.Equal(s, s.ValidateIsNotNullOrWhitespace(nameof(s)));
         }
     }
 }
