@@ -17,7 +17,7 @@
         /// <exception cref="ArgumentException">Is thrown if <paramref name="processId" /> is null or whitespace.</exception>
         public Message(string processId)
         {
-            this.ProcessId = processId.ValidateIsAGuid();
+            this.ProcessId = processId.ValidateIsAGuid(nameof(processId));
         }
 
         /// <summary>

@@ -15,8 +15,8 @@
         /// <param name="collectionName">The name of the collection.</param>
         public DatabaseConfiguration(string projectId, string collectionName)
         {
-            this.ProjectId = projectId.ValidateIsNotNullOrWhitespace();
-            this.CollectionName = collectionName.ValidateIsNotNullOrWhitespace();
+            this.ProjectId = projectId.ValidateIsNotNullOrWhitespace(nameof(projectId));
+            this.CollectionName = collectionName.ValidateIsNotNullOrWhitespace(nameof(collectionName));
         }
 
         /// <summary>
