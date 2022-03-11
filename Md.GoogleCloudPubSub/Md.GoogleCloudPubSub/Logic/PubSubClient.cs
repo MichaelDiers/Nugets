@@ -45,7 +45,15 @@
             }
 
             var json = JsonConvert.SerializeObject(message);
-            await this.client.PublishAsync(json);
+
+            try
+            {
+                await this.client.PublishAsync(json);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(json, ex);
+            }
         }
     }
 }
