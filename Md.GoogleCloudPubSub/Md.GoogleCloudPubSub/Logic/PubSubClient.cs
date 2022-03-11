@@ -52,7 +52,9 @@
             }
             catch (Exception ex)
             {
-                throw new Exception(json, ex);
+                throw new Exception(
+                    $"Project: {this.configuration.ProjectId} - Topic: {this.configuration.TopicName} - message: {json}",
+                    ex);
             }
         }
     }
