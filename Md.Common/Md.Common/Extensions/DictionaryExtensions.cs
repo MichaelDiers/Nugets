@@ -11,6 +11,19 @@
     {
         /// <summary>
         ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
+        ///     Parses the value to an bool.
+        ///     Throws <see cref="ArgumentException" /> if a check fails.
+        /// </summary>
+        /// <param name="dictionary">The dictionary to checked for the key.</param>
+        /// <param name="key">The search key.</param>
+        /// <returns>The requested bool.</returns>
+        public static bool GetBool(this IDictionary<string, object> dictionary, string key)
+        {
+            return GetValue<bool>(dictionary, key);
+        }
+
+        /// <summary>
+        ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
         ///     Parses the value to an IDictionary{string, object}.
         ///     Throws <see cref="ArgumentException" /> if a check fails.
         /// </summary>
@@ -75,6 +88,19 @@
 
         /// <summary>
         ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
+        ///     Parses the value to an int.
+        ///     Throws <see cref="ArgumentException" /> if a check fails.
+        /// </summary>
+        /// <param name="dictionary">The dictionary to checked for the key.</param>
+        /// <param name="key">The search key.</param>
+        /// <returns>The requested int.</returns>
+        public static int GetInt(this IDictionary<string, object> dictionary, string key)
+        {
+            return GetValue<int>(dictionary, key);
+        }
+
+        /// <summary>
+        ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
         ///     Parses the value to a string.
         ///     Throws <see cref="ArgumentException" /> if a check fails.
         /// </summary>
@@ -83,16 +109,35 @@
         /// <returns>The requested string.</returns>
         public static string GetString(this IDictionary<string, object> dictionary, string key)
         {
+            var value = GetValue<string>(dictionary, key);
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentException(
+                    $"Value '{value}' is not a string for key '{key}' or empty in dictionary",
+                    nameof(dictionary));
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
+        ///     Parses the value to type T.
+        ///     Throws <see cref="ArgumentException" /> if a check fails.
+        /// </summary>
+        /// <param name="dictionary">The dictionary to checked for the key.</param>
+        /// <param name="key">The search key.</param>
+        /// <returns>The requested value.</returns>
+        public static T GetValue<T>(this IDictionary<string, object> dictionary, string key)
+        {
             if (!dictionary.TryGetValue(key, out var value))
             {
                 throw new ArgumentException($"Missing key '{key}' in dictionary", nameof(dictionary));
             }
 
-            if (!(value is string s) || string.IsNullOrWhiteSpace(s))
+            if (!(value is T s))
             {
-                throw new ArgumentException(
-                    $"Value '{value}' is not a string for key '{key}' or empty in dictionary",
-                    nameof(dictionary));
+                throw new ArgumentException($"Value '{value}' is not an T for key '{key}'", nameof(dictionary));
             }
 
             return s;
