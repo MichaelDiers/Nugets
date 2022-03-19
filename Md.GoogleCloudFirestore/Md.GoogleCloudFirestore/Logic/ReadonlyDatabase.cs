@@ -1,5 +1,6 @@
 ﻿namespace Md.GoogleCloudFirestore.Logic
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -41,7 +42,41 @@
         /// </returns>
         public async Task<IEnumerable<IDictionary<string, object>>> ReadManyAsync(string fieldPath, object value)
         {
-            var snapshot = await this.Collection().WhereEqualTo(fieldPath, value).GetSnapshotAsync();
+            return await this.ReadManyAsync(fieldPath, value, OrderType.Unsorted);
+        }
+
+        /// <summary>
+        ///     Read all entries of a database collection.
+        /// </summary>
+        /// <param name="fieldPath">Defines the field path.</param>
+        /// <param name="value">Defines the expected value of <paramref name="fieldPath" />.</param>
+        /// <param name="orderType">Specifies the sorting order.</param>
+        /// <returns>
+        ///     A <see cref="Task" /> whose is result is an <see cref="IEnumerable{T}" /> of
+        ///     <see cref="IDictionary{TKey,TValue}" />.
+        /// </returns>
+        public async Task<IEnumerable<IDictionary<string, object>>> ReadManyAsync(
+            string fieldPath,
+            object value,
+            OrderType orderType
+        )
+        {
+            var query = this.Collection().WhereEqualTo(fieldPath, value);
+            switch (orderType)
+            {
+                case OrderType.Unsorted:
+                    break;
+                case OrderType.Asc:
+                    query = query.OrderBy("created");
+                    break;
+                case OrderType.Desc:
+                    query = query.OrderByDescending("created");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(orderType), orderType, null);
+            }
+
+            var snapshot = await query.GetSnapshotAsync();
             return snapshot?.Any() == true
                 ? snapshot.Documents.Where(doc => doc.Exists).Select(doc => doc.ToDictionary()).ToArray()
                 : Enumerable.Empty<IDictionary<string, object>>();
