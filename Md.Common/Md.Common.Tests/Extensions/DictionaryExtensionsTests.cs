@@ -94,7 +94,7 @@
         [InlineData("key", RegexOptions.None)]
         public void GetEnumValue(string key, RegexOptions value)
         {
-            var dictionary = new Dictionary<string, object> {{key, value}};
+            var dictionary = new Dictionary<string, object> {{key, value.ToString()}};
             var actual = dictionary.GetEnumValue<RegexOptions>(key);
             Assert.Equal(value, actual);
         }

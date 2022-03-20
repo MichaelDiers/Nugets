@@ -94,15 +94,17 @@
         /// <param name="dictionary">The dictionary to checked for the key.</param>
         /// <param name="key">The search key.</param>
         /// <returns>The requested enum value.</returns>
-        public static T GetEnumValue<T>(this IDictionary<string, object> dictionary, string key)
+        public static T GetEnumValue<T>(this IDictionary<string, object> dictionary, string key) where T : Enum
         {
-            var value = GetValue<T>(dictionary, key);
+            var value = GetString(dictionary, key);
+            var enumValue = (T) Enum.Parse(typeof(T), value, true);
+
             if (value == null || !Enum.IsDefined(typeof(T), value))
             {
                 throw new ArgumentException($"Value for key {key} is not defined or null");
             }
 
-            return value;
+            return enumValue;
         }
 
         /// <summary>
