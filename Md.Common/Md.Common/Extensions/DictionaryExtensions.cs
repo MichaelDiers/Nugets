@@ -124,7 +124,12 @@
                 return i;
             }
 
-            return Convert.ToInt32(value);
+            if (value is long)
+            {
+                return Convert.ToInt32(value);
+            }
+
+            throw new ArgumentException($"Invalid value {value} for key {key}");
         }
 
         /// <summary>
