@@ -117,7 +117,14 @@
         /// <returns>The requested int.</returns>
         public static int GetInt(this IDictionary<string, object> dictionary, string key)
         {
-            return GetValue<int>(dictionary, key);
+            var value = GetValue<object>(dictionary, key);
+
+            if (value is int i)
+            {
+                return i;
+            }
+
+            return Convert.ToInt32(value);
         }
 
         /// <summary>

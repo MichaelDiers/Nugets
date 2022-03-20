@@ -136,6 +136,16 @@
         }
 
         [Theory]
+        [InlineData("key", 0)]
+        [InlineData("key", 1)]
+        public void GetIntForLong(string key, long value)
+        {
+            var dictionary = new Dictionary<string, object> {{key, value}};
+            var actual = dictionary.GetInt(key);
+            Assert.Equal(value, actual);
+        }
+
+        [Theory]
         [InlineData("key", "0")]
         [InlineData("key", "abd")]
         [InlineData("key", 10.11)]
