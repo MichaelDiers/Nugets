@@ -88,6 +88,25 @@
 
         /// <summary>
         ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
+        ///     Parses the value to an enum value.
+        ///     Throws <see cref="ArgumentException" /> if a check fails.
+        /// </summary>
+        /// <param name="dictionary">The dictionary to checked for the key.</param>
+        /// <param name="key">The search key.</param>
+        /// <returns>The requested enum value.</returns>
+        public static T GetEnumValue<T>(this IDictionary<string, object> dictionary, string key)
+        {
+            var value = GetValue<T>(dictionary, key);
+            if (value == null || !Enum.IsDefined(typeof(T), value))
+            {
+                throw new ArgumentException($"Value for key {key} is not defined or null");
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
         ///     Parses the value to an int.
         ///     Throws <see cref="ArgumentException" /> if a check fails.
         /// </summary>

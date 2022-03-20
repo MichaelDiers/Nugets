@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using Md.Common.Extensions;
     using Xunit;
 
@@ -86,6 +87,42 @@
             Assert.Equal(boolValue, actual.GetBool(nameof(boolValue)));
             Assert.Equal(intValue, actual.GetInt(nameof(intValue)));
             Assert.Equal(stringValue, actual.GetString(nameof(stringValue)));
+        }
+
+        [Theory]
+        [InlineData("key", RegexOptions.Compiled)]
+        [InlineData("key", RegexOptions.None)]
+        public void GetEnumValue(string key, RegexOptions value)
+        {
+            var dictionary = new Dictionary<string, object> {{key, value}};
+            var actual = dictionary.GetEnumValue<RegexOptions>(key);
+            Assert.Equal(value, actual);
+        }
+
+        [Theory]
+        [InlineData("key", "0")]
+        [InlineData("key", "abd")]
+        [InlineData("key", 10.11)]
+        [InlineData("key", true)]
+        public void GetEnumValueThrowsExceptionForInvalidType(string key, object value)
+        {
+            var dictionary = new Dictionary<string, object> {{key, value}};
+            Assert.Throws<ArgumentException>(() => dictionary.GetEnumValue<RegexOptions>(key));
+        }
+
+        [Fact]
+        public void GetEnumValueThrowsExceptionForMissingKey()
+        {
+            var dictionary = new Dictionary<string, object>();
+            Assert.Throws<ArgumentException>(() => dictionary.GetEnumValue<RegexOptions>("key"));
+        }
+
+        [Theory]
+        [InlineData("key", 1000)]
+        public void GetEnumValueThrowsExceptionForUndefined(string key, int value)
+        {
+            var dictionary = new Dictionary<string, object> {{key, (RegexOptions) value}};
+            Assert.Throws<ArgumentException>(() => dictionary.GetEnumValue<RegexOptions>(key));
         }
 
         [Theory]
