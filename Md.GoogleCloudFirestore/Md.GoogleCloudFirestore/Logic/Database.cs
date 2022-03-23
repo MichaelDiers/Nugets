@@ -1,5 +1,7 @@
 ﻿namespace Md.GoogleCloudFirestore.Logic
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Google.Cloud.Firestore;
     using Md.GoogleCloud.Base.Contracts.Logic;
@@ -23,22 +25,52 @@
         /// </summary>
         /// <param name="documentId">The id of the document.</param>
         /// <param name="data">The data to be saved.</param>
-        /// <returns>A <see cref="Task" />.</returns>
-        public async Task InsertAsync(string documentId, IToDictionary data)
+        /// <returns>A <see cref="Task{T}" /> whose result is the id of the document.</returns>
+        public async Task<string> InsertAsync(string documentId, IToDictionary data)
         {
             var documentReference = this.Collection().Document(documentId);
-            await InsertAsync(documentReference, data);
+            return await Database.InsertAsync(documentReference, data);
         }
 
         /// <summary>
         ///     Insert a new object to the database.
         /// </summary>
         /// <param name="data">The data to be saved.</param>
-        /// <returns>A <see cref="Task" />.</returns>
-        public async Task InsertAsync(IToDictionary data)
+        /// <returns>A <see cref="Task{T}" /> whose result is the id of the document.</returns>
+        public async Task<string> InsertAsync(IToDictionary data)
         {
             var documentReference = this.Collection().Document();
-            await InsertAsync(documentReference, data);
+            return await Database.InsertAsync(documentReference, data);
+        }
+
+        /// <summary>
+        ///     Update a document by its document id.
+        /// </summary>
+        /// <param name="documentId">The id of the document.</param>
+        /// <param name="updates">The fields to be updated.</param>
+        /// <returns>A <see cref="Task" />.</returns>
+        public async Task UpdateByDocumentIdAsync(string documentId, IDictionary<string, object> updates)
+        {
+            await this.Collection().Document(documentId).UpdateAsync(updates);
+        }
+
+        /// <summary>
+        ///     Update a document that matches <paramref name="fieldPath" /> and <paramref name="value" />.
+        /// </summary>
+        /// <param name="fieldPath">The document is selected by the field path.</param>
+        /// <param name="value">The field path should be this value.</param>
+        /// <param name="updates">The updates for the document.</param>
+        /// <returns>A <see cref="Task" />.</returns>
+        public async Task UpdateOneAsync(string fieldPath, object value, IDictionary<string, object> updates)
+        {
+            var result = await this.Collection().WhereEqualTo(fieldPath, value).Limit(1).GetSnapshotAsync();
+            if (result.Count != 1)
+            {
+                return;
+            }
+
+            await this.UpdateByDocumentIdAsync(result.First().Id, updates);
+            ;
         }
 
         /// <summary>
@@ -46,12 +78,13 @@
         /// </summary>
         /// <param name="documentReference">The document reference used for inserting.</param>
         /// <param name="data">The data to be saved.</param>
-        /// <returns>A <see cref="Task" />.</returns>
-        private static async Task InsertAsync(DocumentReference documentReference, IToDictionary data)
+        /// <returns>A <see cref="Task" /> whose result is the id of the document.</returns>
+        private static async Task<string> InsertAsync(DocumentReference documentReference, IToDictionary data)
         {
             var document = data.ToDictionary();
             document.Add("created", FieldValue.ServerTimestamp);
             await documentReference.CreateAsync(document);
+            return documentReference.Id;
         }
     }
 }

@@ -32,6 +32,7 @@ jobs:
       - name: nuget config
         run: |
           echo $(sed -e "s/\${USERNAME}/${{ env.NUGET_USERNAME }}/" -e "s@\${TOKEN}@${{ secrets.GITHUB_TOKEN }}@" ${{ env.NUGET_CONFIG }}) > ${{ env.CSPROJ_NUGET }}          
+          cp ${{ env.CSPROJ_NUGET }} ${{ env.CSPROJ_TEST_NUGET }}      
       - name: build
         run: dotnet build ${{ env.SLN_FILE }} --configuration "${{ env.CONFIG }}"      
       - name: pack
