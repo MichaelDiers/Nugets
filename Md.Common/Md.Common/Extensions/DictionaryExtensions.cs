@@ -19,7 +19,7 @@
         /// <returns>The requested bool.</returns>
         public static bool GetBool(this IDictionary<string, object> dictionary, string key)
         {
-            return GetValue<bool>(dictionary, key);
+            return dictionary.GetValue<bool>(key);
         }
 
         /// <summary>
@@ -96,15 +96,15 @@
         /// <returns>The requested enum value.</returns>
         public static T GetEnumValue<T>(this IDictionary<string, object> dictionary, string key) where T : Enum
         {
-            var value = GetString(dictionary, key);
-            var enumValue = (T) Enum.Parse(typeof(T), value, true);
-
-            if (value == null || !Enum.IsDefined(typeof(T), value))
+            var value = dictionary.GetValue<object>(key);
+            try
             {
-                throw new ArgumentException($"Value for key {key} is not defined or null");
+                return value.FromDatabaseToEnum<T>();
             }
-
-            return enumValue;
+            catch (Exception e)
+            {
+                throw new ArgumentException($"Value for key {key} is not defined or null", e);
+            }
         }
 
         /// <summary>
@@ -117,7 +117,7 @@
         /// <returns>The requested int.</returns>
         public static int GetInt(this IDictionary<string, object> dictionary, string key)
         {
-            var value = GetValue<object>(dictionary, key);
+            var value = dictionary.GetValue<object>(key);
 
             if (value is int i)
             {
@@ -142,7 +142,7 @@
         /// <returns>The requested string.</returns>
         public static string GetString(this IDictionary<string, object> dictionary, string key)
         {
-            var value = GetValue<string>(dictionary, key);
+            var value = dictionary.GetValue<string>(key);
             if (string.IsNullOrWhiteSpace(value))
             {
                 throw new ArgumentException(

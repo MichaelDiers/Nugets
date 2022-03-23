@@ -11,7 +11,7 @@
         [InlineData(RegexOptions.Compiled)]
         public void IsDefined(RegexOptions options)
         {
-            Assert.Equal(options, EnumExtensions.IsDefined(options, "foo"));
+            Assert.Equal(options, options.IsDefined("foo"));
         }
 
         [Theory]
@@ -19,6 +19,21 @@
         public void IsDefinedThrowsException(RegexOptions options)
         {
             Assert.Throws<ArgumentException>(() => options.IsDefined("foo"));
+        }
+
+        [Theory]
+        [InlineData(RegexOptions.Compiled, "Compiled")]
+        [InlineData(RegexOptions.None, "None")]
+        public void ToDatabase(RegexOptions input, object expected)
+        {
+            Assert.Equal(expected, input.ToDatabase());
+        }
+
+
+        [Fact]
+        public void ToDatabaseThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() => ((RegexOptions) int.MaxValue).ToDatabase());
         }
     }
 }
