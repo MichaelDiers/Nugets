@@ -45,11 +45,13 @@
         {
             var dictionaries = new List<Dictionary<string, object>>();
             for (var i = 0; i < count; ++i)
+            {
                 dictionaries.Add(
                     new Dictionary<string, object>
                     {
                         {$"{key}_bool", true}, {$"{key}_int", 10}, {$"{key}_string", "value"}
                     });
+            }
 
             var dictionary = new Dictionary<string, object> {{key, dictionaries}};
 
