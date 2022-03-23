@@ -12,15 +12,16 @@
         /// </summary>
         /// <typeparam name="T">The type of the enum.</typeparam>
         /// <param name="value">The value of the enum.</param>
+        /// <param name="paramName">The name of the parameter.</param>
         /// <returns>The given <paramref name="value" /> if the member is defined. Otherwise an exception is thrown.</returns>
-        public static T IsDefined<T>(this T value) where T : Enum
+        public static T IsDefined<T>(this T value, string paramName) where T : Enum
         {
             if (Enum.IsDefined(typeof(T), value))
             {
                 return value;
             }
 
-            throw new ArgumentException($"Unknown enum member {value}", nameof(value));
+            throw new ArgumentException($"Unknown enum member {value}", paramName);
         }
     }
 }
