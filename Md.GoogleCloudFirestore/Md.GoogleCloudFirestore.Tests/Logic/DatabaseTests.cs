@@ -22,8 +22,8 @@
                     .Select(x => new TestSubObject(Guid.NewGuid().ToString(), x, TestEnum.Second))
                     .ToArray());
             var documentId = await database.InsertAsync(obj);
-            var dictionary = await database.ReadByDocumentIdAsync(documentId);
-            var actual = TestObject.FromDictionary(dictionary);
+            var actual = await database.ReadByDocumentIdAsync(documentId);
+            Assert.NotNull(actual);
             Assert.Equal(obj.Foo, actual.Foo);
             Assert.Equal(obj.Subs.Count(), actual.Subs.Count());
             Assert.True(
@@ -47,9 +47,8 @@
             await database.InsertAsync(obj1);
             await database.InsertAsync(obj2);
 
-            var dictionaries = (await database.ReadManyAsync("foo", obj2.Foo)).ToArray();
-            Assert.Equal(2, dictionaries.Length);
-            var actuals = dictionaries.Select(TestObject.FromDictionary).ToArray();
+            var actuals = (await database.ReadManyAsync("foo", obj2.Foo)).ToArray();
+            Assert.Equal(2, actuals.Length);
             Assert.True(actuals.All(o => o.Foo == obj2.Foo));
             var actual1 = actuals.First(x => x.Subs.Count() == 4);
             var actual2 = actuals.First(x => x.Subs.Count() == 3);
@@ -72,9 +71,9 @@
                 Enumerable.Range(0, 3)
                     .Select(x => new TestSubObject(Guid.NewGuid().ToString(), x, TestEnum.Second))
                     .ToArray());
-            var documentId = await database.InsertAsync(obj);
-            var dictionary = await database.ReadOneAsync("foo", obj.Foo);
-            var actual = TestObject.FromDictionary(dictionary);
+            var _ = await database.InsertAsync(obj);
+            var actual = await database.ReadOneAsync("foo", obj.Foo);
+            Assert.NotNull(actual);
             Assert.Equal(obj.Foo, actual.Foo);
             Assert.Equal(obj.Subs.Count(), actual.Subs.Count());
             Assert.True(
@@ -95,8 +94,8 @@
             var updates = new Dictionary<string, object> {{"foo", Guid.NewGuid().ToString()}};
             await database.UpdateByDocumentIdAsync(documentId, updates);
 
-            var dictionary = await database.ReadByDocumentIdAsync(documentId);
-            var actual = TestObject.FromDictionary(dictionary);
+            var actual = await database.ReadByDocumentIdAsync(documentId);
+            Assert.NotNull(actual);
             Assert.Equal(updates["foo"], actual.Foo);
             Assert.Equal(obj.Subs.Count(), actual.Subs.Count());
             Assert.True(
@@ -117,20 +116,20 @@
             var updates = new Dictionary<string, object> {{"foo", Guid.NewGuid().ToString()}};
             await database.UpdateOneAsync("foo", obj.Foo, updates);
 
-            var dictionary = await database.ReadByDocumentIdAsync(documentId);
-            var actual = TestObject.FromDictionary(dictionary);
+            var actual = await database.ReadByDocumentIdAsync(documentId);
+            Assert.NotNull(actual);
             Assert.Equal(updates["foo"], actual.Foo);
             Assert.Equal(obj.Subs.Count(), actual.Subs.Count());
             Assert.True(
                 obj.Subs.All(x => actual.Subs.Any(y => x.Enum == y.Enum && x.Int == y.Int && x.String == y.String)));
         }
 
-        private static IDatabase Create()
+        private static IDatabase<TestObject> Create()
         {
             var json = File.ReadAllText("appsettings.json");
             var configuration = JsonConvert.DeserializeObject<DatabaseConfiguration>(json);
             Assert.NotNull(configuration);
-            return new Database(configuration);
+            return new Database<TestObject>(configuration, TestObject.FromDictionary);
         }
     }
 }

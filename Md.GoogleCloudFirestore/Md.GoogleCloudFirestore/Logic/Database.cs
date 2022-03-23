@@ -1,5 +1,6 @@
 ﻿namespace Md.GoogleCloudFirestore.Logic
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -9,14 +10,15 @@
     /// <summary>
     ///     Access to the database.
     /// </summary>
-    public class Database : ReadonlyDatabase, IDatabase
+    public class Database<T> : ReadonlyDatabase<T>, IDatabase<T> where T : class
     {
         /// <summary>
-        ///     Creates a new instance of <see cref="Database" />.
+        ///     Creates a new instance of <see cref="Database{T}" />.
         /// </summary>
         /// <param name="databaseConfiguration">Configuration of the database.</param>
-        public Database(IDatabaseConfiguration databaseConfiguration)
-            : base(databaseConfiguration)
+        /// <param name="factory">Factory method for creating objects.</param>
+        public Database(IDatabaseConfiguration databaseConfiguration, Func<IDictionary<string, object>, T> factory)
+            : base(databaseConfiguration, factory)
         {
         }
 
@@ -29,7 +31,7 @@
         public async Task<string> InsertAsync(string documentId, IToDictionary data)
         {
             var documentReference = this.Collection().Document(documentId);
-            return await Database.InsertAsync(documentReference, data);
+            return await Database<T>.InsertAsync(documentReference, data);
         }
 
         /// <summary>
@@ -40,7 +42,7 @@
         public async Task<string> InsertAsync(IToDictionary data)
         {
             var documentReference = this.Collection().Document();
-            return await Database.InsertAsync(documentReference, data);
+            return await Database<T>.InsertAsync(documentReference, data);
         }
 
         /// <summary>
@@ -70,7 +72,6 @@
             }
 
             await this.UpdateByDocumentIdAsync(result.First().Id, updates);
-            ;
         }
 
         /// <summary>

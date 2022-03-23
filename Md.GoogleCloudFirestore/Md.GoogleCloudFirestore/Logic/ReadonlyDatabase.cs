@@ -9,15 +9,25 @@
     /// <summary>
     ///     Access database in readonly mode.
     /// </summary>
-    public class ReadonlyDatabase : DatabaseBase, IReadOnlyDatabase
+    public class ReadonlyDatabase<T> : DatabaseBase, IReadOnlyDatabase<T> where T : class
     {
         /// <summary>
-        ///     Creates a new instance of <see cref="ReadonlyDatabase" />.
+        ///     Factory method for creating objects.
+        /// </summary>
+        private readonly Func<IDictionary<string, object>, T> factory;
+
+        /// <summary>
+        ///     Creates a new instance of <see cref="ReadonlyDatabase{T}" />.
         /// </summary>
         /// <param name="databaseConfiguration">Configuration of the database.</param>
-        public ReadonlyDatabase(IDatabaseConfiguration databaseConfiguration)
+        /// <param name="factory">Factory method for creating objects.</param>
+        public ReadonlyDatabase(
+            IDatabaseConfiguration databaseConfiguration,
+            Func<IDictionary<string, object>, T> factory
+        )
             : base(databaseConfiguration)
         {
+            this.factory = factory;
         }
 
         /// <summary>
@@ -25,10 +35,15 @@
         /// </summary>
         /// <param name="documentId">The id of the document.</param>
         /// <returns>A <see cref="Task" /> whose is result is a <see cref="IDictionary{TKey,TValue}" />.</returns>
-        public async Task<IDictionary<string, object>?> ReadByDocumentIdAsync(string documentId)
+        public async Task<T?> ReadByDocumentIdAsync(string documentId)
         {
             var snapshot = await this.Collection().Document(documentId).GetSnapshotAsync();
-            return snapshot.Exists ? snapshot.ToDictionary() : null;
+            if (snapshot.Exists)
+            {
+                return this.factory(snapshot.ToDictionary());
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -40,7 +55,7 @@
         ///     A <see cref="Task" /> whose is result is an <see cref="IEnumerable{T}" /> of
         ///     <see cref="IDictionary{TKey,TValue}" />.
         /// </returns>
-        public async Task<IEnumerable<IDictionary<string, object>>> ReadManyAsync(string fieldPath, object value)
+        public async Task<IEnumerable<T>> ReadManyAsync(string fieldPath, object value)
         {
             return await this.ReadManyAsync(fieldPath, value, OrderType.Unsorted);
         }
@@ -55,11 +70,7 @@
         ///     A <see cref="Task" /> whose is result is an <see cref="IEnumerable{T}" /> of
         ///     <see cref="IDictionary{TKey,TValue}" />.
         /// </returns>
-        public async Task<IEnumerable<IDictionary<string, object>>> ReadManyAsync(
-            string fieldPath,
-            object value,
-            OrderType orderType
-        )
+        public async Task<IEnumerable<T>> ReadManyAsync(string fieldPath, object value, OrderType orderType)
         {
             var query = this.Collection().WhereEqualTo(fieldPath, value);
             switch (orderType)
@@ -78,8 +89,8 @@
 
             var snapshot = await query.GetSnapshotAsync();
             return snapshot?.Any() == true
-                ? snapshot.Documents.Where(doc => doc.Exists).Select(doc => doc.ToDictionary()).ToArray()
-                : Enumerable.Empty<IDictionary<string, object>>();
+                ? snapshot.Documents.Where(doc => doc.Exists).Select(doc => this.factory(doc.ToDictionary())).ToArray()
+                : Enumerable.Empty<T>();
         }
 
         /// <summary>
@@ -88,7 +99,7 @@
         /// <param name="fieldPath">Defines the field path.</param>
         /// <param name="value">Defines the expected value of <paramref name="fieldPath" />.</param>
         /// <returns>A <see cref="Task" /> whose is result is a <see cref="IDictionary{TKey,TValue}" />.</returns>
-        public async Task<IDictionary<string, object>?> ReadOneAsync(string fieldPath, object value)
+        public async Task<T?> ReadOneAsync(string fieldPath, object value)
         {
             var snapshot = await this.Collection().WhereEqualTo(fieldPath, value).Limit(1).GetSnapshotAsync();
             if (snapshot?.Any() == true)
@@ -96,7 +107,7 @@
                 var documentSnapshot = snapshot.Documents.FirstOrDefault();
                 if (documentSnapshot?.Exists == true)
                 {
-                    return documentSnapshot.ToDictionary();
+                    return this.factory(documentSnapshot.ToDictionary());
                 }
             }
 
