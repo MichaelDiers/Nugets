@@ -6,7 +6,7 @@
     /// <summary>
     ///     Access to the database.
     /// </summary>
-    public interface IDatabase : IReadOnlyDatabase
+    public interface IDatabase<T> : IReadOnlyDatabase<T> where T : class
     {
         /// <summary>
         ///     Insert a new object to the database.
