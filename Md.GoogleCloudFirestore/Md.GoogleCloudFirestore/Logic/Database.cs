@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Google.Cloud.Firestore;
+    using Md.Common.Contracts;
     using Md.GoogleCloud.Base.Contracts.Logic;
 
     /// <summary>
@@ -19,6 +20,21 @@
         /// <param name="factory">Factory method for creating objects.</param>
         public Database(IDatabaseConfiguration databaseConfiguration, Func<IDictionary<string, object>, T> factory)
             : base(databaseConfiguration, factory)
+        {
+        }
+
+        /// <summary>
+        ///     Creates a new instance of <see cref="Database{T}" />.
+        /// </summary>
+        /// <param name="runtimeEnvironment">The runtime environment.</param>
+        /// <param name="collectionNameBase">The base name of the database collection.</param>
+        /// <param name="factory">Factory method for creating objects.</param>
+        public Database(
+            IRuntimeEnvironment runtimeEnvironment,
+            string collectionNameBase,
+            Func<IDictionary<string, object>, T> factory
+        )
+            : base(runtimeEnvironment, collectionNameBase, factory)
         {
         }
 

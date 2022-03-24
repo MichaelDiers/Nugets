@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Md.Common.Contracts;
     using Md.GoogleCloud.Base.Contracts.Logic;
 
     /// <summary>
@@ -15,6 +16,22 @@
         ///     Factory method for creating objects.
         /// </summary>
         private readonly Func<IDictionary<string, object>, T> factory;
+
+        /// <summary>
+        ///     Creates a new instance of <see cref="ReadonlyDatabase{T}" />.
+        /// </summary>
+        /// <param name="runtimeEnvironment">The runtime environment.</param>
+        /// <param name="collectionNameBase">The base name of the database collection.</param>
+        /// <param name="factory">Factory method for creating objects.</param>
+        public ReadonlyDatabase(
+            IRuntimeEnvironment runtimeEnvironment,
+            string collectionNameBase,
+            Func<IDictionary<string, object>, T> factory
+        )
+            : base(runtimeEnvironment, collectionNameBase)
+        {
+            this.factory = factory;
+        }
 
         /// <summary>
         ///     Creates a new instance of <see cref="ReadonlyDatabase{T}" />.

@@ -2,7 +2,9 @@
 {
     using System;
     using Google.Cloud.Firestore;
+    using Md.Common.Contracts;
     using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.GoogleCloud.Base.Logic;
 
     /// <summary>
     ///     Base class for database access.
@@ -20,7 +22,20 @@
         private readonly FirestoreDb firestoreDb;
 
         /// <summary>
-        ///     Creates a new instance of <see cref="Database" />.
+        ///     Creates a new instance of <see cref="DatabaseBase" />.
+        /// </summary>
+        /// <param name="runtimeEnvironment">The runtime environment.</param>
+        /// <param name="collectionNameBase">The base name of the database collection.</param>
+        protected DatabaseBase(IRuntimeEnvironment runtimeEnvironment, string collectionNameBase)
+            : this(
+                new DatabaseConfiguration(
+                    runtimeEnvironment.ProjectId,
+                    $"{collectionNameBase}-{runtimeEnvironment.Environment.ToString()}"))
+        {
+        }
+
+        /// <summary>
+        ///     Creates a new instance of <see cref="DatabaseBase" />.
         /// </summary>
         /// <param name="databaseConfiguration">Configuration of the database.</param>
         protected DatabaseBase(IDatabaseConfiguration databaseConfiguration)
