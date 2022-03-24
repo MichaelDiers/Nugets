@@ -30,7 +30,7 @@
             : this(
                 new DatabaseConfiguration(
                     runtimeEnvironment.ProjectId,
-                    $"{collectionNameBase}-{runtimeEnvironment.Environment.ToString()}"))
+                    $"{collectionNameBase}-{runtimeEnvironment.Environment.ToString().ToLowerInvariant()}"))
         {
         }
 
