@@ -95,7 +95,7 @@
         [InlineData("key", "value1", "value2")]
         public void GetEnumerableOfString(string key, string value1, string value2)
         {
-            var dictionary = new Dictionary<string, object> {{key, new[] {value1, value2}}};
+            var dictionary = new Dictionary<string, object> {{key, new object[] {value1, value2}}};
             var enumerable = dictionary.GetEnumerableOfString(key).ToArray();
             Assert.NotNull(enumerable);
             Assert.Equal(2, enumerable.Length);

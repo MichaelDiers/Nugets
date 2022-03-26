@@ -97,9 +97,15 @@
         public static IEnumerable<string> GetEnumerableOfString(this IDictionary<string, object> dictionary, string key)
         {
             var value = dictionary.GetValue<object>(key);
-            if (value is IEnumerable<string> enumerable)
+            if (value is IEnumerable<object> enumerable)
             {
-                return enumerable;
+                return enumerable.Select(
+                        x => x is string s
+                            ? s
+                            : throw new ArgumentException(
+                                $"Value '{value}' is not an IEnumerable<string> for key '{key}'",
+                                nameof(dictionary)))
+                    .ToArray();
             }
 
             throw new ArgumentException(
