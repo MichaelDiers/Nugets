@@ -88,6 +88,27 @@
 
         /// <summary>
         ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
+        ///     Parses the value to an <see cref="IEnumerable{T}" /> of <see cref="string" />.
+        ///     Throws <see cref="ArgumentException" /> if a check fails.
+        /// </summary>
+        /// <param name="dictionary">The dictionary to checked for the key.</param>
+        /// <param name="key">The search key.</param>
+        /// <returns>The requested value.</returns>
+        public static IEnumerable<string> GetEnumerableOfString(this IDictionary<string, object> dictionary, string key)
+        {
+            var value = dictionary.GetValue<object>(key);
+            if (value is IEnumerable<string> enumerable)
+            {
+                return enumerable;
+            }
+
+            throw new ArgumentException(
+                $"Value '{value}' is not an IEnumerable<string> for key '{key}'",
+                nameof(dictionary));
+        }
+
+        /// <summary>
+        ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
         ///     Parses the value to an enum value.
         ///     Throws <see cref="ArgumentException" /> if a check fails.
         /// </summary>

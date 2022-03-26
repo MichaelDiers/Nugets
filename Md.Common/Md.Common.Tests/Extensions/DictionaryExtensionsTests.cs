@@ -92,6 +92,18 @@
         }
 
         [Theory]
+        [InlineData("key", "value1", "value2")]
+        public void GetEnumerableOfString(string key, string value1, string value2)
+        {
+            var dictionary = new Dictionary<string, object> {{key, new[] {value1, value2}}};
+            var enumerable = dictionary.GetEnumerableOfString(key).ToArray();
+            Assert.NotNull(enumerable);
+            Assert.Equal(2, enumerable.Length);
+            Assert.Equal(value1, enumerable[0]);
+            Assert.Equal(value2, enumerable[1]);
+        }
+
+        [Theory]
         [InlineData("key", RegexOptions.Compiled)]
         [InlineData("key", RegexOptions.None)]
         public void GetEnumValue(string key, RegexOptions value)
