@@ -18,6 +18,15 @@
         /// <summary>
         ///     Read all entries of a database collection.
         /// </summary>
+        /// <returns>
+        ///     A <see cref="Task" /> whose is result is an <see cref="IEnumerable{T}" /> of
+        ///     <see cref="IDictionary{TKey,TValue}" />.
+        /// </returns>
+        Task<IEnumerable<T>> ReadManyAsync();
+
+        /// <summary>
+        ///     Read all entries of a database collection.
+        /// </summary>
         /// <param name="fieldPath">Defines the field path.</param>
         /// <param name="value">Defines the expected value of <paramref name="fieldPath" />.</param>
         /// <returns>
