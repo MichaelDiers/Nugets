@@ -66,6 +66,24 @@
         /// <summary>
         ///     Read all entries of a database collection.
         /// </summary>
+        /// <returns>
+        ///     A <see cref="Task" /> whose is result is an <see cref="IEnumerable{T}" /> of
+        ///     <see cref="IDictionary{TKey,TValue}" />.
+        /// </returns>
+        public async Task<IEnumerable<T>> ReadManyAsync()
+        {
+            var snapshot = await this.Collection().GetSnapshotAsync();
+            if (snapshot.Count > 0)
+            {
+                return snapshot.Where(doc => doc.Exists).Select(doc => this.factory(doc.ToDictionary())).ToArray();
+            }
+
+            return Enumerable.Empty<T>();
+        }
+
+        /// <summary>
+        ///     Read all entries of a database collection.
+        /// </summary>
         /// <param name="fieldPath">Defines the field path.</param>
         /// <param name="value">Defines the expected value of <paramref name="fieldPath" />.</param>
         /// <returns>
