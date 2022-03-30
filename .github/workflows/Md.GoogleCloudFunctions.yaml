@@ -7,37 +7,11 @@ on:
       - 'Md.GoogleCloudFunctions/**'
       - '.github/workflows/Md.GoogleCloudFunctions.yaml'
   workflow_dispatch:
-env:
-  CONFIG: Release
-  CSPROJ_FILE: 'Md.GoogleCloudFunctions/Md.GoogleCloudFunctions/Md.GoogleCloudFunctions.csproj'
-  PACKAGE_FILE_BASE: 'Md.GoogleCloudFunctions/Md.GoogleCloudFunctions/bin'
-  PACKAGE_SOURCE: 'https://nuget.pkg.github.com/MichaelDiers'
-  PACKAGE_VERSION: '1.1.$GITHUB_RUN_NUMBER'
-  SLN_FILE: 'Md.GoogleCloudFunctions/Md.GoogleCloudFunctions.sln'
-  NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
-  NUGET_USERNAME: MichaelDiers
-  NUGET_CONFIG: '.github/workflows/Generic-Nuget.config'
-  CSPROJ_NUGET: 'Md.GoogleCloudFunctions/Md.GoogleCloudFunctions/nuget.config'
-  CSPROJ_TEST_NUGET: 'Md.GoogleCloudFunctions/Md.GoogleCloudFunctions.Tests/nuget.config' 
 jobs:
-  prod:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout source
-        uses: actions/checkout@v2
-      - name: use .net core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.x
-      - name: nuget config
-        run: |
-          echo $(sed -e "s/\${USERNAME}/${{ env.NUGET_USERNAME }}/" -e "s@\${TOKEN}@${{ secrets.GITHUB_TOKEN }}@" ${{ env.NUGET_CONFIG }}) > ${{ env.CSPROJ_NUGET }}
-          cp ${{ env.CSPROJ_NUGET }} ${{ env.CSPROJ_TEST_NUGET }}
-      - name: build
-        run: dotnet build ${{ env.SLN_FILE }} --configuration "${{ env.CONFIG }}"
-      - name: test
-        run: dotnet test ${{ env.SLN_FILE }} --configuration "${{ env.CONFIG }}" --no-build
-      - name: pack
-        run: dotnet pack "${{ env.CSPROJ_FILE }}" -c "${{ env.CONFIG }}" -p:PackageVersion=${{ env.PACKAGE_VERSION }} --no-build
-      - name: publish
-        run: dotnet nuget push "${{ env.PACKAGE_FILE_BASE }}/${{ env.CONFIG }}/*.nupkg" --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate --no-symbols true
+  createSchemaAndTopic:
+    uses: MichaelDiers/shared-workflows/.github/workflows/dotnet-nuget.yaml@main
+    with:
+      projectName: Md.GoogleCloudFunctions
+      solutionFolder: Md.GoogleCloudFunctions
+    secrets:
+      nugetAuthToken: ${{ secrets.NUGET_AUTH_TOKEN }}
