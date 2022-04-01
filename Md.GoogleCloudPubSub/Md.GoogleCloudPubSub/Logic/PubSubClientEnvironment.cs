@@ -5,21 +5,34 @@
     /// <summary>
     ///     Specifies the pub/sub client environment.
     /// </summary>
-    public interface IPubSubClientEnvironment
+    public class PubSubClientEnvironment : IPubSubClientEnvironment
     {
+        /// <summary>
+        ///     Creates a new instance of <see cref="PubSubClientEnvironment" />.
+        /// </summary>
+        /// <param name="environment">The runtime environment.</param>
+        /// <param name="projectId">The id of the project.</param>
+        /// <param name="topicName">The name of the pub/sub topic.</param>
+        public PubSubClientEnvironment(Environment environment, string projectId, string topicName)
+        {
+            this.Environment = environment;
+            this.ProjectId = projectId;
+            this.TopicName = topicName;
+        }
+
         /// <summary>
         ///     Gets the runtime environment.
         /// </summary>
-        Environment Environment { get; }
+        public Environment Environment { get; }
 
         /// <summary>
         ///     Gets the project id.
         /// </summary>
-        string ProjectId { get; }
+        public string ProjectId { get; }
 
         /// <summary>
         ///     Gets the name of the topic.
         /// </summary>
-        string TopicName { get; }
+        public string TopicName { get; }
     }
 }
