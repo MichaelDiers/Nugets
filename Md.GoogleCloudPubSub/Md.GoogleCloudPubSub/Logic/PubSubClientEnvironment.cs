@@ -10,6 +10,14 @@
         /// <summary>
         ///     Creates a new instance of <see cref="PubSubClientEnvironment" />.
         /// </summary>
+        public PubSubClientEnvironment()
+            : this(Environment.None, string.Empty, string.Empty)
+        {
+        }
+
+        /// <summary>
+        ///     Creates a new instance of <see cref="PubSubClientEnvironment" />.
+        /// </summary>
         /// <param name="environment">The runtime environment.</param>
         /// <param name="projectId">The id of the project.</param>
         /// <param name="topicName">The name of the pub/sub topic.</param>
@@ -23,16 +31,16 @@
         /// <summary>
         ///     Gets the runtime environment.
         /// </summary>
-        public Environment Environment { get; }
+        public Environment Environment { get; set; }
 
         /// <summary>
         ///     Gets the project id.
         /// </summary>
-        public string ProjectId { get; }
+        public string ProjectId { get; set; }
 
         /// <summary>
         ///     Gets the name of the topic.
         /// </summary>
-        public string TopicName { get; }
+        public string TopicName { get; set; }
     }
 }
