@@ -1,16 +1,16 @@
-name: Md.GoogleBase
+name: Md.GoogleCloud.Base
 on:
   push:
     branches:
       - main
     paths:
-      - 'Md.GoogleBase/**'
+      - 'Md.GoogleCloud.Base/**'
   workflow_dispatch:
 jobs:
   buildAndPublishNuget:
     uses: MichaelDiers/shared-workflows/.github/workflows/dotnet-nuget.yaml@main
     with:
-      projectName: Md.GoogleBase
-      solutionFolder: Md.GoogleBase
+      projectName: Md.GoogleCloud.Base
+      solutionFolder: Md.GoogleCloud.Base
     secrets:
       nugetAuthToken: ${{ secrets.NUGET_AUTH_TOKEN }}
