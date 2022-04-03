@@ -1,5 +1,7 @@
 ﻿namespace Md.GoogleCloud.Base.Contracts.Logic
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     ///     Access the google cloud secrets manager.
     /// </summary>
@@ -10,6 +12,6 @@
         /// </summary>
         /// <param name="key">The key of the secret.</param>
         /// <returns>The value for the given key.</returns>
-        string GetString(string key);
+        Task<string> GetStringAsync(string key);
     }
 }
