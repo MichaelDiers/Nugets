@@ -1,14 +1,13 @@
-name: Md.GoogleCloudFunctions.yaml
+name: Md.GoogleCloudFunctions
 on:
   push:
     branches:
       - main
     paths:
       - 'Md.GoogleCloudFunctions/**'
-      - '.github/workflows/Md.GoogleCloudFunctions.yaml'
   workflow_dispatch:
 jobs:
-  createSchemaAndTopic:
+  buildAndPublishNuget:
     uses: MichaelDiers/shared-workflows/.github/workflows/dotnet-nuget.yaml@main
     with:
       projectName: Md.GoogleCloudFunctions

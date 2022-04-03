@@ -1,14 +1,13 @@
-name: Md.GoogleCloudPubSub.yaml
+name: Md.GoogleCloudPubSub
 on:
   push:
     branches:
       - main
     paths:
       - 'Md.GoogleCloudPubSub/**'
-      - '.github/workflows/Md.GoogleCloudPubSub.yaml'
   workflow_dispatch:
 jobs:
-  createSchemaAndTopic:
+  buildAndPublishNuget:
     uses: MichaelDiers/shared-workflows/.github/workflows/dotnet-nuget.yaml@main
     with:
       projectName: Md.GoogleCloudPubSub

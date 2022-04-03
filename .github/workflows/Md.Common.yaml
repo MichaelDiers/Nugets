@@ -1,14 +1,13 @@
-name: Md.Common.yaml
+name: Md.Common
 on:
   push:
     branches:
       - main
     paths:
       - 'Md.Common/**'
-      - '.github/workflows/Md.Common.yaml'
   workflow_dispatch:
 jobs:
-  createSchemaAndTopic:
+  buildAndPublishNuget:
     uses: MichaelDiers/shared-workflows/.github/workflows/dotnet-nuget.yaml@main
     with:
       projectName: Md.Common

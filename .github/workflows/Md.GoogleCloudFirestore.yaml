@@ -1,14 +1,13 @@
-name: Md.GoogleCloudFirestore.yaml
+name: Md.GoogleCloudFirestore
 on:
   push:
     branches:
       - main
     paths:
       - 'Md.GoogleCloudFirestore/**'
-      - '.github/workflows/Md.GoogleCloudFirestore.yaml'
   workflow_dispatch:
 jobs:
-  createSchemaAndTopic:
+  buildAndPublishNuget:
     uses: MichaelDiers/shared-workflows/.github/workflows/dotnet-nuget.yaml@main
     with:
       projectName: Md.GoogleCloudFirestore
