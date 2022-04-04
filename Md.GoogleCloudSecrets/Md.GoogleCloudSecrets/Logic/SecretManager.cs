@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Google.Cloud.SecretManager.V1;
+    using Md.Common.Contracts;
     using Md.Common.Extensions;
     using Md.GoogleCloud.Base.Contracts.Logic;
 
@@ -10,6 +11,11 @@
     /// </summary>
     public class SecretManager : ISecretManager
     {
+        /// <summary>
+        ///     The runtime environment.
+        /// </summary>
+        private readonly Environment environment;
+
         /// <summary>
         ///     The id of the project.
         /// </summary>
@@ -21,6 +27,7 @@
         /// <param name="environment">The environment of the secret manager.</param>
         public SecretManager(ISecretManagerEnvironment environment)
         {
+            this.environment = environment.Environment.IsDefined(nameof(environment));
             this.projectId = environment.ProjectId.ValidateIsNotNullOrWhitespace(nameof(SecretManager.projectId));
         }
 
@@ -33,7 +40,8 @@
         {
             // Create the client.
             var client = await SecretManagerServiceClient.CreateAsync();
-            var secret = await client.AccessSecretVersionAsync(new SecretVersionName(this.projectId, key, "latest"));
+            var secret = await client.AccessSecretVersionAsync(
+                new SecretVersionName(this.projectId, $"{key}_{this.environment.ToString().ToUpper()}", "latest"));
             return secret.Payload.Data.ToStringUtf8();
         }
     }
