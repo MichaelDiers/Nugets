@@ -9,6 +9,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Google.Cloud.PubSub.V1" Version="2.8.0" />
-    <PackageReference Include="Md.GoogleCloud.Base" Version="1.2.32" />	</ItemGroup>
+    <PackageReference Include="Md.GoogleCloud.Base" Version="1.2.37" />	</ItemGroup>
 
 </Project>

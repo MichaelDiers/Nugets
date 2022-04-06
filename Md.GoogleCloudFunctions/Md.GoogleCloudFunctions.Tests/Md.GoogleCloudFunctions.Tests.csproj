@@ -19,7 +19,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="Google.Cloud.Functions.Testing" Version="1.0.0" />
-		<PackageReference Include="Md.GoogleCloud.Base" Version="1.2.32" />
+		<PackageReference Include="Md.GoogleCloud.Base" Version="1.2.37" />
 	</ItemGroup>
 
 	<ItemGroup>
