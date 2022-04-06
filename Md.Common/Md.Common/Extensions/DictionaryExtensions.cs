@@ -182,6 +182,20 @@
 
         /// <summary>
         ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
+        ///     Parses the value to a string.
+        ///     Throws <see cref="ArgumentException" /> if a check fails.
+        /// </summary>
+        /// <param name="dictionary">The dictionary to checked for the key.</param>
+        /// <param name="key">The search key.</param>
+        /// <param name="defaultValue">Return value if key is not in dictionary.</param>
+        /// <returns>The requested string.</returns>
+        public static string GetString(this IDictionary<string, object> dictionary, string key, string defaultValue)
+        {
+            return dictionary.GetValue(key, defaultValue);
+        }
+
+        /// <summary>
+        ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
         ///     Parses the value to type T.
         ///     Throws <see cref="ArgumentException" /> if a check fails.
         /// </summary>
@@ -193,6 +207,30 @@
             if (!dictionary.TryGetValue(key, out var value))
             {
                 throw new ArgumentException($"Missing key '{key}' in dictionary", nameof(dictionary));
+            }
+
+            if (!(value is T s))
+            {
+                throw new ArgumentException($"Value '{value}' is not an T for key '{key}'", nameof(dictionary));
+            }
+
+            return s;
+        }
+
+        /// <summary>
+        ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
+        ///     Parses the value to type T.
+        ///     Throws <see cref="ArgumentException" /> if a check fails.
+        /// </summary>
+        /// <param name="dictionary">The dictionary to checked for the key.</param>
+        /// <param name="key">The search key.</param>
+        /// <param name="defaultValue">Value is returned if key is not in dictionary.</param>
+        /// <returns>The requested value.</returns>
+        private static T GetValue<T>(this IDictionary<string, object> dictionary, string key, T defaultValue)
+        {
+            if (!dictionary.TryGetValue(key, out var value))
+            {
+                return defaultValue;
             }
 
             if (!(value is T s))
