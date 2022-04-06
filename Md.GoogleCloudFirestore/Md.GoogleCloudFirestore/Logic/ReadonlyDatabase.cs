@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Google.Cloud.Firestore;
     using Md.Common.Contracts;
     using Md.GoogleCloud.Base.Contracts.Logic;
 
@@ -12,6 +13,11 @@
     /// </summary>
     public class ReadonlyDatabase<T> : DatabaseBase, IReadOnlyDatabase<T> where T : class
     {
+        /// <summary>
+        ///     The name of the internal id.
+        /// </summary>
+        public const string InternalIdName = "internalId";
+
         /// <summary>
         ///     Factory method for creating objects.
         /// </summary>
@@ -57,7 +63,7 @@
             var snapshot = await this.Collection().Document(documentId).GetSnapshotAsync();
             if (snapshot.Exists)
             {
-                return this.factory(snapshot.ToDictionary());
+                return this.factory(this.ToDictionary(snapshot));
             }
 
             return null;
@@ -75,7 +81,7 @@
             var snapshot = await this.Collection().GetSnapshotAsync();
             if (snapshot.Count > 0)
             {
-                return snapshot.Where(doc => doc.Exists).Select(doc => this.factory(doc.ToDictionary())).ToArray();
+                return snapshot.Where(doc => doc.Exists).Select(doc => this.factory(this.ToDictionary(doc))).ToArray();
             }
 
             return Enumerable.Empty<T>();
@@ -124,7 +130,9 @@
 
             var snapshot = await query.GetSnapshotAsync();
             return snapshot?.Any() == true
-                ? snapshot.Documents.Where(doc => doc.Exists).Select(doc => this.factory(doc.ToDictionary())).ToArray()
+                ? snapshot.Documents.Where(doc => doc.Exists)
+                    .Select(doc => this.factory(this.ToDictionary(doc)))
+                    .ToArray()
                 : Enumerable.Empty<T>();
         }
 
@@ -142,11 +150,28 @@
                 var documentSnapshot = snapshot.Documents.FirstOrDefault();
                 if (documentSnapshot?.Exists == true)
                 {
-                    return this.factory(documentSnapshot.ToDictionary());
+                    return this.factory(this.ToDictionary(documentSnapshot));
                 }
             }
 
             return null;
+        }
+
+        /// <summary>
+        ///     Create a dictionary from the snapshot and the internal id.
+        /// </summary>
+        /// <param name="snapshot">The snapshot from that the dictionary is created.</param>
+        /// <returns>A <see cref="IDictionary{TKey,TValue}" />.</returns>
+        private IDictionary<string, object> ToDictionary(DocumentSnapshot? snapshot)
+        {
+            if (snapshot != null)
+            {
+                var dictionary = snapshot.ToDictionary();
+                dictionary.Add(ReadonlyDatabase<T>.InternalIdName, snapshot.Id);
+                return dictionary;
+            }
+
+            return new Dictionary<string, object>();
         }
     }
 }
