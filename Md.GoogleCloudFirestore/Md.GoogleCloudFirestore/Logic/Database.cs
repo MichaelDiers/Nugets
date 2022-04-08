@@ -14,6 +14,11 @@
     public class Database<T> : ReadonlyDatabase<T>, IDatabase<T> where T : class
     {
         /// <summary>
+        ///     Name of the crated field.
+        /// </summary>
+        public const string CreatedName = "created";
+
+        /// <summary>
         ///     Creates a new instance of <see cref="Database{T}" />.
         /// </summary>
         /// <param name="databaseConfiguration">Configuration of the database.</param>
@@ -99,7 +104,7 @@
         private static async Task<string> InsertAsync(DocumentReference documentReference, IToDictionary data)
         {
             var document = data.ToDictionary();
-            document.Add("created", FieldValue.ServerTimestamp);
+            document.Add(Database<T>.CreatedName, FieldValue.ServerTimestamp);
             await documentReference.CreateAsync(document);
             return documentReference.Id;
         }
