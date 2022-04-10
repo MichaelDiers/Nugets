@@ -1,8 +1,8 @@
 ﻿namespace Md.GoogleCloudSecrets.Logic
 {
-    using Md.Common.Contracts;
+    using Md.Common.Contracts.Model;
     using Md.Common.Extensions;
-    using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.GoogleCloudSecrets.Contracts.Logic;
 
     /// <summary>
     ///     Environment for <see cref="SecretManager" />.

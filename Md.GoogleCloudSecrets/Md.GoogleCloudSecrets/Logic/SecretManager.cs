@@ -2,9 +2,9 @@
 {
     using System.Threading.Tasks;
     using Google.Cloud.SecretManager.V1;
-    using Md.Common.Contracts;
+    using Md.Common.Contracts.Model;
     using Md.Common.Extensions;
-    using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.GoogleCloudSecrets.Contracts.Logic;
 
     /// <summary>
     ///     Access google cloud secret manager.
