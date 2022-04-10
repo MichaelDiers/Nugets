@@ -22,6 +22,17 @@
             return dictionary.GetValue<bool>(key);
         }
 
+        public static DateTime GetDateTime(this IDictionary<string, object> dictionary, string key)
+        {
+            var value = dictionary.GetValue<object>(key);
+            if (value is DateTime dt)
+            {
+                return dt;
+            }
+
+            throw new ArgumentException("Value is not a date time");
+        }
+
         /// <summary>
         ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
         ///     Parses the value to an IDictionary{string, object}.
