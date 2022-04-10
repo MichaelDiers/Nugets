@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using Md.Common.Logic;
     using Md.GoogleCloudFirestore.Contracts.Logic;
     using Md.GoogleCloudFirestore.Logic;
     using Md.GoogleCloudFirestore.Model;
-    using Newtonsoft.Json;
     using Xunit;
 
     public class DatabaseTests
@@ -128,7 +128,7 @@
         {
             // ReSharper disable once StringLiteralTypo
             var json = File.ReadAllText("appsettings.json");
-            var configuration = JsonConvert.DeserializeObject<DatabaseConfiguration>(json);
+            var configuration = Serializer.DeserializeObject<DatabaseConfiguration>(json);
             Assert.NotNull(configuration);
             return new Database<TestObject>(configuration, TestObject.FromDictionary);
         }

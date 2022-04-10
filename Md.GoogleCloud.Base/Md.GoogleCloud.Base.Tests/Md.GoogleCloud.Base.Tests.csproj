@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Md.GoogleCloud.Base\Md.GoogleCloud.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
 </Project>

@@ -7,9 +7,9 @@
     using Google.Cloud.Functions.Framework;
     using Google.Events.Protobuf.Cloud.PubSub.V1;
     using Md.Common.Contracts.Messages;
+    using Md.Common.Logic;
     using Md.GoogleCloudFunctions.Contracts.Logic;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
 
     /// <summary>
     ///     Base implementation for handling pub/sub cloud events.
@@ -69,7 +69,7 @@
                         nameof(MessagePublishedData.Message.TextData));
                 }
 
-                var message = JsonConvert.DeserializeObject<TMessage>(json);
+                var message = Serializer.DeserializeObject<TMessage>(json);
                 if (message == null)
                 {
                     throw new ArgumentException(

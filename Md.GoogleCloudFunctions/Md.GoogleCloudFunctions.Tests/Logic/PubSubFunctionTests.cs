@@ -7,9 +7,9 @@
     using CloudNative.CloudEvents;
     using Google.Cloud.Functions.Testing;
     using Google.Events.Protobuf.Cloud.PubSub.V1;
+    using Md.Common.Logic;
     using Md.GoogleCloudFunctions.Logic;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
     using Xunit;
 
     /// <summary>
@@ -42,7 +42,7 @@
             const string data = "data";
 
             var logger = new MemoryLogger<PubSubFunctionImplementation>();
-            var json = JsonConvert.SerializeObject(new TestMessage(id, data));
+            var json = Serializer.SerializeObject(new TestMessage(id, data));
 
             await PubSubFunctionTests.RunHandleAsync(
                 logger,

@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
     using Google.Cloud.PubSub.V1;
+    using Md.Common.Logic;
     using Md.GoogleCloudPubSub.Contracts.Logic;
     using Md.GoogleCloudPubSub.Contracts.Model;
-    using Newtonsoft.Json;
 
     /// <summary>
     ///     Access google pub/sub.
@@ -39,13 +39,18 @@
         /// <returns>A <see cref="Task" />.</returns>
         public async Task PublishAsync<T>(T message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             if (this.client == null)
             {
                 var topic = TopicName.FromProjectTopic(this.configuration.ProjectId, this.configuration.TopicName);
                 this.client = await PublisherClient.CreateAsync(topic);
             }
 
-            var json = JsonConvert.SerializeObject(message);
+            var json = Serializer.SerializeObject(message);
 
             try
             {

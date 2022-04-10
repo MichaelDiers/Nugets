@@ -1,9 +1,9 @@
 ﻿namespace Md.GoogleCloudFunctions.Logic
 {
     using System.Threading.Tasks;
+    using Md.Common.Logic;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
 
     public abstract class HttpFunctionJson<TCategoryName, TContent> : HttpFunction<TCategoryName> where TContent : class
     {
@@ -25,7 +25,7 @@
         /// <returns>A task to indicate when the request is complete.</returns>
         protected override async Task HandleAnyAsync(HttpContext context, object? content)
         {
-            var obj = content is string json ? JsonConvert.DeserializeObject<TContent>(json) : null;
+            var obj = content is string json ? Serializer.DeserializeObject<TContent>(json) : null;
             await this.HandleAnyContentAsync(context, obj);
         }
 
@@ -53,7 +53,7 @@
         /// <returns>A task to indicate when the request is complete.</returns>
         protected override async Task HandleDeleteAsync(HttpContext context, object? content)
         {
-            var obj = content is string json ? JsonConvert.DeserializeObject<TContent>(json) : null;
+            var obj = content is string json ? Serializer.DeserializeObject<TContent>(json) : null;
             await this.HandleDeleteContentAsync(context, obj);
         }
 
@@ -78,7 +78,7 @@
         /// <returns>A task to indicate when the request is complete.</returns>
         protected override async Task HandleGetAsync(HttpContext context, object? content)
         {
-            var obj = content is string json ? JsonConvert.DeserializeObject<TContent>(json) : null;
+            var obj = content is string json ? Serializer.DeserializeObject<TContent>(json) : null;
             await this.HandleGetContentAsync(context, obj);
         }
 
@@ -103,7 +103,7 @@
         /// <returns>A task to indicate when the request is complete.</returns>
         protected override async Task HandleHeadAsync(HttpContext context, object? content)
         {
-            var obj = content is string json ? JsonConvert.DeserializeObject<TContent>(json) : null;
+            var obj = content is string json ? Serializer.DeserializeObject<TContent>(json) : null;
             await this.HandleHeadContentAsync(context, obj);
         }
 
@@ -128,7 +128,7 @@
         /// <returns>A task to indicate when the request is complete.</returns>
         protected override async Task HandlePostAsync(HttpContext context, object? content)
         {
-            var obj = content is string json ? JsonConvert.DeserializeObject<TContent>(json) : null;
+            var obj = content is string json ? Serializer.DeserializeObject<TContent>(json) : null;
             await this.HandlePostContentAsync(context, obj);
         }
 
@@ -153,7 +153,7 @@
         /// <returns>A task to indicate when the request is complete.</returns>
         protected override async Task HandlePutAsync(HttpContext context, object? content)
         {
-            var obj = content is string json ? JsonConvert.DeserializeObject<TContent>(json) : null;
+            var obj = content is string json ? Serializer.DeserializeObject<TContent>(json) : null;
             await this.HandlePutContentAsync(context, obj);
         }
 

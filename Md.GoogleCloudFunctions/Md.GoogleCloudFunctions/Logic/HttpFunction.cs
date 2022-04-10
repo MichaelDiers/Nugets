@@ -8,9 +8,9 @@
     using System.Net;
     using System.Threading.Tasks;
     using Google.Cloud.Functions.Framework;
+    using Md.Common.Logic;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
 
     /// <summary>
     ///     Base for google cloud http functions.
@@ -230,7 +230,7 @@
         /// <returns>A <see cref="Task" />.</returns>
         protected virtual async Task SetJsonResponse(HttpContext context, HttpStatusCode statusCode, object content)
         {
-            var json = JsonConvert.SerializeObject(content);
+            var json = Serializer.SerializeObject(content);
             await this.SetJsonResponse(context, statusCode, json);
         }
 
