@@ -146,17 +146,12 @@
         {
             var value = dictionary.GetValue<object>(key);
 
-            if (value is int i)
+            return value switch
             {
-                return i;
-            }
-
-            if (value is long)
-            {
-                return Convert.ToInt32(value);
-            }
-
-            throw new ArgumentException($"Invalid value {value} for key {key}");
+                int i => i,
+                long _ => Convert.ToInt32(value),
+                _ => throw new ArgumentException($"Invalid value {value} for key {key}")
+            };
         }
 
         /// <summary>

@@ -30,7 +30,7 @@
         /// <typeparam name="T">The type of the enum.</typeparam>
         /// <param name="value">The value to be converted.</param>
         /// <returns>The database representation of the value.</returns>
-        /// <see cref="ObjectExtensions.FromDatabaseToEnumToEnum{T}" />
+        /// <see cref="ObjectExtensions.FromDatabaseToEnum{T}" />
         public static object ToDatabase<T>(this T value) where T : Enum
         {
             return value.IsDefined(nameof(value)).ToString();

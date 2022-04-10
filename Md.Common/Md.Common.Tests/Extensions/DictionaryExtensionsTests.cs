@@ -211,5 +211,14 @@
             var dictionary = new Dictionary<string, object> {{key, value}};
             Assert.Throws<ArgumentException>(() => dictionary.GetString(key));
         }
+
+        [Theory]
+        [InlineData("key", "value")]
+        public void GetStringWithDefaultValue(string key, string defaultValue)
+        {
+            var dictionary = new Dictionary<string, object>();
+            var actual = dictionary.GetString(key, defaultValue);
+            Assert.Equal(defaultValue, actual);
+        }
     }
 }
