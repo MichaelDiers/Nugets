@@ -3,7 +3,8 @@
     using System;
     using System.Threading.Tasks;
     using Google.Cloud.PubSub.V1;
-    using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.GoogleCloudPubSub.Contracts.Logic;
+    using Md.GoogleCloudPubSub.Contracts.Model;
     using Newtonsoft.Json;
 
     /// <summary>

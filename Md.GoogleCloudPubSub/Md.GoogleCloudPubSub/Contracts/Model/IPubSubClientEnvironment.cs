@@ -1,6 +1,6 @@
-﻿namespace Md.GoogleCloudPubSub.Logic
+﻿namespace Md.GoogleCloudPubSub.Contracts.Model
 {
-    using Md.Common.Contracts;
+    using Md.Common.Contracts.Model;
 
     /// <summary>
     ///     Specifies the pub/sub client environment.

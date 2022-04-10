@@ -1,9 +1,10 @@
 ﻿namespace Md.GoogleCloudPubSub.Logic
 {
     using System.Threading.Tasks;
-    using Md.GoogleCloud.Base.Contracts.Logic;
-    using Md.GoogleCloud.Base.Contracts.Messages;
-    using Md.GoogleCloud.Base.Logic;
+    using Md.Common.Contracts.Messages;
+    using Md.GoogleCloudPubSub.Contracts.Logic;
+    using Md.GoogleCloudPubSub.Contracts.Model;
+    using Md.GoogleCloudPubSub.Model;
 
     /// <summary>
     ///     Base pub/sub client.
