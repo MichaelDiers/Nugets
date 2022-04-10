@@ -164,6 +164,13 @@
             {
                 var dictionary = snapshot.ToDictionary();
                 dictionary.Add(DatabaseObject.DocumentIdName, snapshot.Id);
+
+                if (dictionary.TryGetValue(DatabaseObject.CreatedName, out var createdObject))
+                {
+                    var timestamp = (Timestamp) createdObject;
+                    dictionary[DatabaseObject.CreatedName] = timestamp.ToDateTime();
+                }
+
                 return dictionary;
             }
 
