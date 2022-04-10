@@ -24,8 +24,4 @@
     <ProjectReference Include="..\Md.Common\Md.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\" />
-  </ItemGroup>
-
 </Project>

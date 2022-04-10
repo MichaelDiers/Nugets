@@ -1,6 +1,6 @@
 ﻿namespace Md.Common.Tests.Logic
 {
-    using Md.Common.Contracts;
+    using Md.Common.Contracts.Model;
 
     public class SerializerTestsObject
     {

@@ -3,7 +3,7 @@
     using System;
     using Md.Common.Logic;
     using Xunit;
-    using Environment = Md.Common.Contracts.Environment;
+    using Environment = Md.Common.Contracts.Model.Environment;
 
     public class SerializerTests
     {

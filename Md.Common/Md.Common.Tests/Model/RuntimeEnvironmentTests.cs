@@ -1,6 +1,6 @@
 ﻿namespace Md.Common.Tests.Model
 {
-    using Md.Common.Contracts;
+    using Md.Common.Contracts.Model;
     using Md.Common.Model;
     using Xunit;
 

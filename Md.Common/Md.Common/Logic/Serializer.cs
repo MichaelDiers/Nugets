@@ -14,7 +14,7 @@
         /// <summary>
         ///     The predefined parameters for <see cref="JsonConvert" />.
         /// </summary>
-        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings
+        private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             Converters = {new StringEnumConverter(new DefaultNamingStrategy(), false)}
         };
@@ -32,7 +32,7 @@
         /// </exception>
         public static T DeserializeObject<T>(string value)
         {
-            var deserialized = JsonConvert.DeserializeObject<T>(value, Serializer.settings);
+            var deserialized = JsonConvert.DeserializeObject<T>(value, Serializer.Settings);
             if (deserialized == null)
             {
                 throw new ArgumentException($"Cannot deserialize {value}");
@@ -48,7 +48,7 @@
         /// <returns>An instance of <see cref="string" />.</returns>
         public static string SerializeObject(object value)
         {
-            return JsonConvert.SerializeObject(value, Serializer.settings);
+            return JsonConvert.SerializeObject(value, Serializer.Settings);
         }
     }
 }

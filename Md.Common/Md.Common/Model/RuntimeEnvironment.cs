@@ -1,6 +1,6 @@
 ﻿namespace Md.Common.Model
 {
-    using Md.Common.Contracts;
+    using Md.Common.Contracts.Model;
 
     /// <summary>
     ///     Describes the runtime environment.
