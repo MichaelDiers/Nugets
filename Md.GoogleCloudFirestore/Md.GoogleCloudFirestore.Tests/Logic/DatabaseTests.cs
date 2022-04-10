@@ -1,7 +1,6 @@
 ﻿namespace Md.GoogleCloudFirestore.Tests.Logic
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using Md.Common.Logic;
@@ -75,50 +74,6 @@
             var actual = await database.ReadOneAsync("foo", obj.Foo);
             Assert.NotNull(actual);
             Assert.Equal(obj.Foo, actual.Foo);
-            Assert.Equal(obj.Subs.Count(), actual.Subs.Count());
-            Assert.True(
-                obj.Subs.All(x => actual.Subs.Any(y => x.Enum == y.Enum && x.Int == y.Int && x.String == y.String)));
-        }
-
-        [Fact(Skip = "Integration")]
-        public async void InsertAsyncAndUpdateByDocumentIdAsyncAndReadByDocumentIdAsync()
-        {
-            var database = DatabaseTests.Create();
-            var obj = new TestObject(
-                Guid.NewGuid().ToString(),
-                Enumerable.Range(0, 3)
-                    .Select(x => new TestSubObject(Guid.NewGuid().ToString(), x, TestEnum.Second))
-                    .ToArray());
-            var documentId = await database.InsertAsync(obj);
-
-            var updates = new Dictionary<string, object> {{"foo", Guid.NewGuid().ToString()}};
-            await database.UpdateByDocumentIdAsync(documentId, updates);
-
-            var actual = await database.ReadByDocumentIdAsync(documentId);
-            Assert.NotNull(actual);
-            Assert.Equal(updates["foo"], actual.Foo);
-            Assert.Equal(obj.Subs.Count(), actual.Subs.Count());
-            Assert.True(
-                obj.Subs.All(x => actual.Subs.Any(y => x.Enum == y.Enum && x.Int == y.Int && x.String == y.String)));
-        }
-
-        [Fact(Skip = "Integration")]
-        public async void InsertAsyncAndUpdateOneAsyncAndReadByDocumentIdAsync()
-        {
-            var database = DatabaseTests.Create();
-            var obj = new TestObject(
-                Guid.NewGuid().ToString(),
-                Enumerable.Range(0, 3)
-                    .Select(x => new TestSubObject(Guid.NewGuid().ToString(), x, TestEnum.Second))
-                    .ToArray());
-            var documentId = await database.InsertAsync(obj);
-
-            var updates = new Dictionary<string, object> {{"foo", Guid.NewGuid().ToString()}};
-            await database.UpdateOneAsync("foo", obj.Foo, updates);
-
-            var actual = await database.ReadByDocumentIdAsync(documentId);
-            Assert.NotNull(actual);
-            Assert.Equal(updates["foo"], actual.Foo);
             Assert.Equal(obj.Subs.Count(), actual.Subs.Count());
             Assert.True(
                 obj.Subs.All(x => actual.Subs.Any(y => x.Enum == y.Enum && x.Int == y.Int && x.String == y.String)));

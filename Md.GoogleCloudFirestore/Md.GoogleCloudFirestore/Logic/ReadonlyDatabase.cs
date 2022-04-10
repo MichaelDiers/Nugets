@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Google.Cloud.Firestore;
     using Md.Common.Contracts.Model;
+    using Md.Common.Database;
     using Md.GoogleCloudFirestore.Contracts.Logic;
     using Md.GoogleCloudFirestore.Contracts.Model;
 
@@ -14,11 +15,6 @@
     /// </summary>
     public class ReadonlyDatabase<T> : DatabaseBase, IReadOnlyDatabase<T> where T : class
     {
-        /// <summary>
-        ///     The name of the internal id.
-        /// </summary>
-        public const string InternalIdName = "internalId";
-
         /// <summary>
         ///     Factory method for creating objects.
         /// </summary>
@@ -167,7 +163,7 @@
             if (snapshot != null)
             {
                 var dictionary = snapshot.ToDictionary();
-                dictionary.Add(ReadonlyDatabase<T>.InternalIdName, snapshot.Id);
+                dictionary.Add(DatabaseObject.DocumentIdName, snapshot.Id);
                 return dictionary;
             }
 
