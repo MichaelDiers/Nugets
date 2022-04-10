@@ -39,6 +39,15 @@
             Assert.Throws<ArgumentException>(() => dictionary.GetBool("key"));
         }
 
+        [Fact]
+        public void GetDateTime()
+        {
+            var dateTime = DateTime.Now;
+            var dictionary = new Dictionary<string, object> {{nameof(dateTime), dateTime}};
+            var fromDictionary = dictionary.GetDateTime(nameof(dateTime));
+            Assert.Equal(dateTime, fromDictionary);
+        }
+
         [Theory]
         [InlineData("key", 5)]
         public void GetDictionaries(string key, int count)
