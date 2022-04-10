@@ -1,6 +1,6 @@
 ﻿namespace Md.GoogleCloudFunctions.Tests.Logic
 {
-    using Md.GoogleCloud.Base.Contracts.Messages;
+    using Md.Common.Contracts.Messages;
 
     /// <summary>
     ///     Specifies a test message.

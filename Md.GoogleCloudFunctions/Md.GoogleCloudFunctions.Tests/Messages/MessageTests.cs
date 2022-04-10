@@ -1,8 +1,8 @@
 ﻿namespace Md.GoogleCloudFunctions.Tests.Messages
 {
     using System;
-    using Md.GoogleCloud.Base.Contracts.Messages;
-    using Md.GoogleCloud.Base.Messages;
+    using Md.Common.Contracts.Messages;
+    using Md.Common.Messages;
     using Xunit;
 
     /// <summary>

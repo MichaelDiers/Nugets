@@ -44,7 +44,7 @@
             var logger = new MemoryLogger<PubSubFunctionImplementation>();
             var json = JsonConvert.SerializeObject(new TestMessage(id, data));
 
-            await RunHandleAsync(
+            await PubSubFunctionTests.RunHandleAsync(
                 logger,
                 json,
                 id,
@@ -73,7 +73,7 @@
         public async void HandleAsyncLogsError(string json, string error)
         {
             var logger = new MemoryLogger<PubSubFunctionImplementation>();
-            await RunHandleAsync(
+            await PubSubFunctionTests.RunHandleAsync(
                 logger,
                 json,
                 Guid.NewGuid().ToString(),

@@ -2,8 +2,8 @@
 {
     using System;
     using Google.Cloud.Functions.Testing;
-    using Md.GoogleCloud.Base.Contracts.Logic;
-    using Md.GoogleCloud.Base.Logic;
+    using Md.GoogleCloudFunctions.Contracts.Logic;
+    using Md.GoogleCloudFunctions.Logic;
     using Xunit;
 
     /// <summary>

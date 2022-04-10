@@ -1,7 +1,7 @@
 ﻿namespace Md.GoogleCloudFunctions.Tests.Logic
 {
     using System;
-    using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.GoogleCloudFunctions.Contracts.Logic;
     using Md.GoogleCloudFunctions.Logic;
     using Microsoft.Extensions.Logging;
 

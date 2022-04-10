@@ -1,7 +1,7 @@
 ﻿namespace Md.GoogleCloudFunctions.Tests.Logic
 {
     using System;
-    using Md.GoogleCloud.Base.Messages;
+    using Md.Common.Messages;
     using Newtonsoft.Json;
 
     /// <summary>
