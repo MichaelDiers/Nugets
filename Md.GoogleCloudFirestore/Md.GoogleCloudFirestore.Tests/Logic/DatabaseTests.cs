@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Md.GoogleCloud.Base.Contracts.Logic;
-    using Md.GoogleCloud.Base.Logic;
+    using Md.GoogleCloudFirestore.Contracts.Logic;
     using Md.GoogleCloudFirestore.Logic;
+    using Md.GoogleCloudFirestore.Model;
     using Newtonsoft.Json;
     using Xunit;
 
@@ -37,7 +37,7 @@
             var obj1 = new TestObject(
                 Guid.NewGuid().ToString(),
                 Enumerable.Range(0, 4)
-                    .Select(x => new TestSubObject(Guid.NewGuid().ToString(), x, TestEnum.Second))
+                    .Select(x => new TestSubObject(Guid.NewGuid().ToString(), x, TestEnum.First))
                     .ToArray());
             var obj2 = new TestObject(
                 obj1.Foo,
@@ -47,11 +47,11 @@
             await database.InsertAsync(obj1);
             await database.InsertAsync(obj2);
 
-            var actuals = (await database.ReadManyAsync("foo", obj2.Foo)).ToArray();
-            Assert.Equal(2, actuals.Length);
-            Assert.True(actuals.All(o => o.Foo == obj2.Foo));
-            var actual1 = actuals.First(x => x.Subs.Count() == 4);
-            var actual2 = actuals.First(x => x.Subs.Count() == 3);
+            var actualArray = (await database.ReadManyAsync("foo", obj2.Foo)).ToArray();
+            Assert.Equal(2, actualArray.Length);
+            Assert.True(actualArray.All(o => o.Foo == obj2.Foo));
+            var actual1 = actualArray.First(x => x.Subs.Count() == 4);
+            var actual2 = actualArray.First(x => x.Subs.Count() == 3);
 
             Assert.Equal(obj1.Subs.Count(), actual1.Subs.Count());
             Assert.Equal(obj2.Subs.Count(), actual2.Subs.Count());
@@ -126,6 +126,7 @@
 
         private static IDatabase<TestObject> Create()
         {
+            // ReSharper disable once StringLiteralTypo
             var json = File.ReadAllText("appsettings.json");
             var configuration = JsonConvert.DeserializeObject<DatabaseConfiguration>(json);
             Assert.NotNull(configuration);

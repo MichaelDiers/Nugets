@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Cloud.Firestore" Version="2.5.0" />
-    <PackageReference Include="Md.Common" Version="1.2.24" />
-    <PackageReference Include="Md.GoogleCloud.Base" Version="1.2.37" />
+    <PackageReference Include="Md.Common" Version="1.2.28" />
   </ItemGroup>
 </Project>

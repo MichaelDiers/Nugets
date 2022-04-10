@@ -5,8 +5,9 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Google.Cloud.Firestore;
-    using Md.Common.Contracts;
-    using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.Common.Contracts.Model;
+    using Md.GoogleCloudFirestore.Contracts.Logic;
+    using Md.GoogleCloudFirestore.Contracts.Model;
 
     /// <summary>
     ///     Access database in readonly mode.
@@ -61,12 +62,7 @@
         public async Task<T?> ReadByDocumentIdAsync(string documentId)
         {
             var snapshot = await this.Collection().Document(documentId).GetSnapshotAsync();
-            if (snapshot.Exists)
-            {
-                return this.factory(this.ToDictionary(snapshot));
-            }
-
-            return null;
+            return snapshot.Exists ? this.factory(ReadonlyDatabase<T>.ToDictionary(snapshot)) : null;
         }
 
         /// <summary>
@@ -81,7 +77,9 @@
             var snapshot = await this.Collection().GetSnapshotAsync();
             if (snapshot.Count > 0)
             {
-                return snapshot.Where(doc => doc.Exists).Select(doc => this.factory(this.ToDictionary(doc))).ToArray();
+                return snapshot.Where(doc => doc.Exists)
+                    .Select(doc => this.factory(ReadonlyDatabase<T>.ToDictionary(doc)))
+                    .ToArray();
             }
 
             return Enumerable.Empty<T>();
@@ -124,6 +122,8 @@
                 case OrderType.Desc:
                     query = query.OrderByDescending("created");
                     break;
+                case OrderType.Undefined:
+                    throw new ArgumentException($"Cannot handle order type {OrderType.Undefined}");
                 default:
                     throw new ArgumentOutOfRangeException(nameof(orderType), orderType, null);
             }
@@ -131,7 +131,7 @@
             var snapshot = await query.GetSnapshotAsync();
             return snapshot?.Any() == true
                 ? snapshot.Documents.Where(doc => doc.Exists)
-                    .Select(doc => this.factory(this.ToDictionary(doc)))
+                    .Select(doc => this.factory(ReadonlyDatabase<T>.ToDictionary(doc)))
                     .ToArray()
                 : Enumerable.Empty<T>();
         }
@@ -150,7 +150,7 @@
                 var documentSnapshot = snapshot.Documents.FirstOrDefault();
                 if (documentSnapshot?.Exists == true)
                 {
-                    return this.factory(this.ToDictionary(documentSnapshot));
+                    return this.factory(ReadonlyDatabase<T>.ToDictionary(documentSnapshot));
                 }
             }
 
@@ -162,7 +162,7 @@
         /// </summary>
         /// <param name="snapshot">The snapshot from that the dictionary is created.</param>
         /// <returns>A <see cref="IDictionary{TKey,TValue}" />.</returns>
-        private IDictionary<string, object> ToDictionary(DocumentSnapshot? snapshot)
+        private static IDictionary<string, object> ToDictionary(DocumentSnapshot? snapshot)
         {
             if (snapshot != null)
             {

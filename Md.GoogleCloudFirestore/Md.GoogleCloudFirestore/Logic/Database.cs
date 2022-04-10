@@ -5,8 +5,9 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Google.Cloud.Firestore;
-    using Md.Common.Contracts;
-    using Md.GoogleCloud.Base.Contracts.Logic;
+    using Md.Common.Contracts.Model;
+    using Md.GoogleCloudFirestore.Contracts.Logic;
+    using Md.GoogleCloudFirestore.Contracts.Model;
 
     /// <summary>
     ///     Access to the database.

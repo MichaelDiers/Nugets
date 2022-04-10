@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Md.Common.Extensions;
-    using Md.GoogleCloud.Base.Logic;
+    using Md.Common.Model;
 
     public class TestObject : ToDictionaryConverter
     {

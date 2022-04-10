@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Md.Common.Extensions;
-    using Md.GoogleCloud.Base.Logic;
+    using Md.Common.Model;
 
     public class TestSubObject : ToDictionaryConverter
     {

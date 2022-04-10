@@ -2,9 +2,9 @@
 {
     using System;
     using Google.Cloud.Firestore;
-    using Md.Common.Contracts;
-    using Md.GoogleCloud.Base.Contracts.Logic;
-    using Md.GoogleCloud.Base.Logic;
+    using Md.Common.Contracts.Model;
+    using Md.GoogleCloudFirestore.Contracts.Model;
+    using Md.GoogleCloudFirestore.Model;
 
     /// <summary>
     ///     Base class for database access.
