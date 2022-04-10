@@ -1,7 +1,6 @@
 ﻿namespace Md.Common.Logic
 {
     using System;
-    using Md.Common.Contracts;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
@@ -10,23 +9,16 @@
     ///     Handle <see cref="JsonConvert.SerializeObject(object?)" /> and
     ///     <see cref="JsonConvert.DeserializeObject{T}(string)" /> with predefined parameters.
     /// </summary>
-    public class Serializer : ISerializer
+    public static class Serializer
     {
         /// <summary>
         ///     The predefined parameters for <see cref="JsonConvert" />.
         /// </summary>
-        private readonly JsonSerializerSettings settings;
-
-        /// <summary>
-        ///     Creates a new instance of <see cref="Serializer" />.
-        /// </summary>
-        public Serializer()
+        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings
         {
-            this.settings = new JsonSerializerSettings
-            {
-                Converters = {new StringEnumConverter(new DefaultNamingStrategy(), false)}
-            };
-        }
+            Converters = {new StringEnumConverter(new DefaultNamingStrategy(), false)}
+        };
+
 
         /// <summary>
         ///     Deserialize a string to an object of type <typeparamref name="T" />.
@@ -38,9 +30,9 @@
         ///     Is thrown if <see cref="JsonConvert.DeserializeObject{T}(string)" /> results in a
         ///     null value.
         /// </exception>
-        public T DeserializeObject<T>(string value)
+        public static T DeserializeObject<T>(string value)
         {
-            var deserialized = JsonConvert.DeserializeObject<T>(value, this.settings);
+            var deserialized = JsonConvert.DeserializeObject<T>(value, Serializer.settings);
             if (deserialized == null)
             {
                 throw new ArgumentException($"Cannot deserialize {value}");
@@ -54,9 +46,9 @@
         /// </summary>
         /// <param name="value">The value to be serialized.</param>
         /// <returns>An instance of <see cref="string" />.</returns>
-        public string SerializeObject(object value)
+        public static string SerializeObject(object value)
         {
-            return JsonConvert.SerializeObject(value, this.settings);
+            return JsonConvert.SerializeObject(value, Serializer.settings);
         }
     }
 }

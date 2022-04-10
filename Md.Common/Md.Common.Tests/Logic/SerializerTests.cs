@@ -1,7 +1,6 @@
 ﻿namespace Md.Common.Tests.Logic
 {
     using System;
-    using Md.Common.Contracts;
     using Md.Common.Logic;
     using Xunit;
     using Environment = Md.Common.Contracts.Environment;
@@ -15,10 +14,9 @@
         [InlineData(Environment.None, 13)]
         public void DeserializeObject(Environment environment, int value)
         {
-            var serializer = new Serializer() as ISerializer;
-            var json = serializer.SerializeObject(
+            var json = Serializer.SerializeObject(
                 new SerializerTestsObject {Environment = environment, TestInt = value});
-            var actual = serializer.DeserializeObject<SerializerTestsObject>(json);
+            var actual = Serializer.DeserializeObject<SerializerTestsObject>(json);
             Assert.Equal(environment, actual.Environment);
             Assert.Equal(value, actual.TestInt);
         }
@@ -26,8 +24,7 @@
         [Fact]
         public void DeserializeObjectThrowsArgumentException()
         {
-            var serializer = new Serializer() as ISerializer;
-            Assert.Throws<ArgumentException>(() => serializer.DeserializeObject<SerializerTestsObject>(string.Empty));
+            Assert.Throws<ArgumentException>(() => Serializer.DeserializeObject<SerializerTestsObject>(string.Empty));
         }
 
         [Theory]
@@ -35,9 +32,8 @@
         public void SerializeObject(Environment environment, int value)
         {
             var expected = $"{{\"Environment\":\"{environment.ToString()}\",\"TestInt\":{value}}}";
-            var serializer = new Serializer() as ISerializer;
             var actual =
-                serializer.SerializeObject(new SerializerTestsObject {Environment = environment, TestInt = value});
+                Serializer.SerializeObject(new SerializerTestsObject {Environment = environment, TestInt = value});
             Assert.Equal(expected, actual);
         }
     }
