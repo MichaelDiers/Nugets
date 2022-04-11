@@ -95,5 +95,18 @@
 
             return dictionary;
         }
+
+        /// <summary>
+        ///     Create new instance of <see cref="DatabaseObject" />.
+        /// </summary>
+        /// <param name="dictionary">The data from that the object is created.</param>
+        /// <returns>An instance of <see cref="IDatabaseObject" />.</returns>
+        public static IDatabaseObject FromDictionary(IDictionary<string, object> dictionary)
+        {
+            var documentId = dictionary.GetString(DatabaseObject.DocumentIdName);
+            var created = dictionary.GetDateTime(DatabaseObject.CreatedName);
+            var parentDocumentId = dictionary.GetString(DatabaseObject.ParentDocumentIdName, string.Empty);
+            return new DatabaseObject(documentId, created, parentDocumentId);
+        }
     }
 }
