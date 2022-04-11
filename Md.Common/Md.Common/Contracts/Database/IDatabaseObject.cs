@@ -11,16 +11,16 @@
         /// <summary>
         ///     Gets the created field of the database object.
         /// </summary>
-        DateTime? Created { get; }
+        DateTime Created { get; }
 
         /// <summary>
         ///     Gets the id of the document.
         /// </summary>
-        string? DocumentId { get; }
+        string DocumentId { get; }
 
         /// <summary>
         ///     Gets the document id of the logical parent document.
         /// </summary>
-        string? ParentDocumentId { get; }
+        string ParentDocumentId { get; }
     }
 }

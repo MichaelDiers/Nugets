@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Md.Common.Contracts.Database;
+    using Md.Common.Extensions;
     using Md.Common.Model;
     using Newtonsoft.Json;
 
@@ -30,7 +31,7 @@
         ///     Creates a new instance of <see cref="DatabaseObject" />.
         /// </summary>
         public DatabaseObject()
-            : this(null, null, null)
+            : this(string.Empty, null, string.Empty)
         {
         }
 
@@ -43,28 +44,32 @@
         [JsonConstructor]
         public DatabaseObject(string? documentId, DateTime? created, string? parentDocumentId)
         {
-            this.DocumentId = documentId;
-            this.Created = created;
-            this.ParentDocumentId = parentDocumentId;
+            this.DocumentId = string.IsNullOrWhiteSpace(documentId)
+                ? string.Empty
+                : documentId.ValidateIsAGuid(nameof(documentId));
+            this.Created = created ?? DateTime.MinValue;
+            this.ParentDocumentId = string.IsNullOrWhiteSpace(parentDocumentId)
+                ? string.Empty
+                : parentDocumentId.ValidateIsAGuid(nameof(parentDocumentId));
         }
 
         /// <summary>
         ///     Gets the created field of the database object.
         /// </summary>
         [JsonProperty(DatabaseObject.CreatedName, Required = Required.AllowNull, Order = 2)]
-        public DateTime? Created { get; }
+        public DateTime Created { get; }
 
         /// <summary>
         ///     Gets the id of the document.
         /// </summary>
         [JsonProperty(DatabaseObject.DocumentIdName, Required = Required.AllowNull, Order = 1)]
-        public string? DocumentId { get; }
+        public string DocumentId { get; }
 
         /// <summary>
         ///     Gets the document id of the logical parent document.
         /// </summary>
         [JsonProperty(DatabaseObject.ParentDocumentIdName, Required = Required.AllowNull, Order = 3)]
-        public string? ParentDocumentId { get; }
+        public string ParentDocumentId { get; }
 
         /// <summary>
         ///     Add the property values to a dictionary.
