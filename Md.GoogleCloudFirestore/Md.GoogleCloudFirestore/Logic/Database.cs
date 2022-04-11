@@ -71,7 +71,11 @@
         private static async Task<string> InsertAsync(DocumentReference documentReference, IToDictionary data)
         {
             var document = data.ToDictionary();
-            document.Add(DatabaseObject.CreatedName, FieldValue.ServerTimestamp);
+            if (!document.TryAdd(DatabaseObject.CreatedName, FieldValue.ServerTimestamp))
+            {
+                document[DatabaseObject.CreatedName] = FieldValue.ServerTimestamp;
+            }
+
             if (document.ContainsKey(DatabaseObject.DocumentIdName))
             {
                 document.Remove(DatabaseObject.DocumentIdName);
