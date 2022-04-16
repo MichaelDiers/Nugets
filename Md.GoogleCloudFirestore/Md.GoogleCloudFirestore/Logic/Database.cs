@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Google.Cloud.Firestore;
-    using Md.Common.Contracts.Database;
     using Md.Common.Contracts.Model;
     using Md.Common.Database;
     using Md.GoogleCloudFirestore.Contracts.Logic;
@@ -13,7 +12,7 @@
     /// <summary>
     ///     Access to the database.
     /// </summary>
-    public class Database<T> : ReadonlyDatabase<T>, IDatabase<T> where T : class, IDatabaseObject
+    public class Database<T> : ReadonlyDatabase<T>, IDatabase<T> where T : class
     {
         /// <summary>
         ///     Creates a new instance of <see cref="Database{T}" />.

@@ -25,5 +25,19 @@
         /// <param name="message">An error message.</param>
         /// <returns>A <see cref="Task" />.</returns>
         Task LogErrorAsync(Exception ex, string message);
+
+        /// <summary>
+        ///     Log an error message.
+        /// </summary>
+        /// <param name="ex">The raised exception.</param>
+        /// <returns>A <see cref="Task" />.</returns>
+        Task LogErrorAsync(Exception ex);
+
+        /// <summary>
+        ///     Log an error message.
+        /// </summary>
+        /// <param name="message">An error message.</param>
+        /// <returns>A <see cref="Task" />.</returns>
+        Task LogErrorAsync(string message);
     }
 }

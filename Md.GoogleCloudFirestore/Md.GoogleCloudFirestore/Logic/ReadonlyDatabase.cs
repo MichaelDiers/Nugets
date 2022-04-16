@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Google.Cloud.Firestore;
-    using Md.Common.Contracts.Database;
     using Md.Common.Contracts.Model;
     using Md.Common.Database;
     using Md.GoogleCloudFirestore.Contracts.Logic;
@@ -14,7 +13,7 @@
     /// <summary>
     ///     Access database in readonly mode.
     /// </summary>
-    public class ReadonlyDatabase<T> : DatabaseBase, IReadOnlyDatabase<T> where T : class, IDatabaseObject
+    public class ReadonlyDatabase<T> : DatabaseBase, IReadOnlyDatabase<T> where T : class
     {
         /// <summary>
         ///     Factory method for creating objects.
@@ -161,21 +160,21 @@
         /// <returns>A <see cref="IDictionary{TKey,TValue}" />.</returns>
         private static IDictionary<string, object> ToDictionary(DocumentSnapshot? snapshot)
         {
-            if (snapshot != null)
+            if (snapshot == null)
             {
-                var dictionary = snapshot.ToDictionary();
-                dictionary.Add(DatabaseObject.DocumentIdName, snapshot.Id);
-
-                if (dictionary.TryGetValue(DatabaseObject.CreatedName, out var createdObject))
-                {
-                    var timestamp = (Timestamp) createdObject;
-                    dictionary[DatabaseObject.CreatedName] = timestamp.ToDateTime();
-                }
-
-                return dictionary;
+                return new Dictionary<string, object>();
             }
 
-            return new Dictionary<string, object>();
+            var dictionary = snapshot.ToDictionary();
+            dictionary.Add(DatabaseObject.DocumentIdName, snapshot.Id);
+
+            if (dictionary.TryGetValue(DatabaseObject.CreatedName, out var createdObject))
+            {
+                var timestamp = (Timestamp) createdObject;
+                dictionary[DatabaseObject.CreatedName] = timestamp.ToDateTime();
+            }
+
+            return dictionary;
         }
     }
 }

@@ -64,6 +64,27 @@
         }
 
         /// <summary>
+        ///     Log an error message.
+        /// </summary>
+        /// <param name="message">An error message.</param>
+        /// <returns>A <see cref="Task" />.</returns>
+        public Task LogErrorAsync(string message)
+        {
+            this.logger.LogError(message);
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        ///     Log an error message.
+        /// </summary>
+        /// <param name="ex">The raised exception.</param>
+        /// <returns>A <see cref="Task" />.</returns>
+        public async Task LogErrorAsync(Exception ex)
+        {
+            await this.LogErrorAsync(ex, string.Empty);
+        }
+
+        /// <summary>
         ///     Handles the pub/sub messages of type <typeparamref name="TMessage" />.
         /// </summary>
         /// <param name="message">The message that is handled.</param>

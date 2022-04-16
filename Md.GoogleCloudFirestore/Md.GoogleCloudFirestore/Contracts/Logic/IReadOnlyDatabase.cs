@@ -2,12 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Md.Common.Contracts.Database;
 
     /// <summary>
     ///     Readonly operations for databases.
     /// </summary>
-    public interface IReadOnlyDatabase<T> where T : class, IDatabaseObject
+    public interface IReadOnlyDatabase<T> where T : class
     {
         /// <summary>
         ///     Read a document of a database collection by its id.
