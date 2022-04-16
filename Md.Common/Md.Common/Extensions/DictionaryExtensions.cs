@@ -71,7 +71,6 @@
             }
         }
 
-
         /// <summary>
         ///     Checks if <paramref name="key" /> is in <paramref name="dictionary" />.
         ///     Parses the value to an IDictionary{string, object}.

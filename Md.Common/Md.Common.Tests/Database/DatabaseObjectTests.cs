@@ -42,5 +42,15 @@
             Assert.Equal(DateTime.Parse(created), fromJson.Created);
             Assert.Equal(parentDocumentId, fromJson.ParentDocumentId);
         }
+
+        [Fact]
+        public void ToFromDictionary()
+        {
+            var expected = new DatabaseObject(Guid.NewGuid().ToString(), DateTime.Now, Guid.NewGuid().ToString());
+            var actual = DatabaseObject.FromDictionary(expected.ToDictionary());
+            Assert.Equal(expected.Created, actual.Created);
+            Assert.Equal(expected.DocumentId, actual.DocumentId);
+            Assert.Equal(expected.ParentDocumentId, actual.ParentDocumentId);
+        }
     }
 }

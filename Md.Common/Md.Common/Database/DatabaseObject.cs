@@ -78,20 +78,9 @@
         /// <returns>The given <paramref name="dictionary" />.</returns>
         public override IDictionary<string, object> AddToDictionary(IDictionary<string, object> dictionary)
         {
-            if (this.DocumentId != null)
-            {
-                dictionary.Add(DatabaseObject.DocumentIdName, this.DocumentId);
-            }
-
-            if (this.Created != null)
-            {
-                dictionary.Add(DatabaseObject.CreatedName, this.Created);
-            }
-
-            if (this.ParentDocumentId != null)
-            {
-                dictionary.Add(DatabaseObject.ParentDocumentIdName, this.ParentDocumentId);
-            }
+            dictionary.Add(DatabaseObject.DocumentIdName, this.DocumentId);
+            dictionary.Add(DatabaseObject.CreatedName, this.Created);
+            dictionary.Add(DatabaseObject.ParentDocumentIdName, this.ParentDocumentId);
 
             return dictionary;
         }

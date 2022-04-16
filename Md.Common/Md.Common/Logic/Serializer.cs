@@ -19,7 +19,6 @@
             Converters = {new StringEnumConverter(new DefaultNamingStrategy(), false)}
         };
 
-
         /// <summary>
         ///     Deserialize a string to an object of type <typeparamref name="T" />.
         /// </summary>

@@ -29,7 +29,6 @@
             Assert.Equal(expected, input.ToDatabase());
         }
 
-
         [Fact]
         public void ToDatabaseThrowsException()
         {
