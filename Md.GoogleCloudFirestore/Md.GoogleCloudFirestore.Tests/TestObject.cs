@@ -1,11 +1,13 @@
 ﻿namespace Md.GoogleCloudFirestore.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Md.Common.Contracts.Database;
     using Md.Common.Extensions;
     using Md.Common.Model;
 
-    public class TestObject : ToDictionaryConverter
+    public class TestObject : ToDictionaryConverter, IDatabaseObject
     {
         public TestObject(string foo, IEnumerable<TestSubObject> subs)
         {
@@ -16,6 +18,10 @@
         public string Foo { get; }
 
         public IEnumerable<TestSubObject> Subs { get; }
+
+        public DateTime Created { get; } = DateTime.Now;
+        public string DocumentId { get; } = Guid.NewGuid().ToString();
+        public string ParentDocumentId { get; } = Guid.NewGuid().ToString();
 
         public override IDictionary<string, object> AddToDictionary(IDictionary<string, object> dictionary)
         {

@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Google.Cloud.Firestore;
+    using Md.Common.Contracts.Database;
     using Md.Common.Contracts.Model;
     using Md.Common.Database;
     using Md.GoogleCloudFirestore.Contracts.Logic;
@@ -13,7 +14,7 @@
     /// <summary>
     ///     Access database in readonly mode.
     /// </summary>
-    public class ReadonlyDatabase<T> : DatabaseBase, IReadOnlyDatabase<T> where T : class
+    public class ReadonlyDatabase<T> : DatabaseBase, IReadOnlyDatabase<T> where T : class, IDatabaseObject
     {
         /// <summary>
         ///     Factory method for creating objects.

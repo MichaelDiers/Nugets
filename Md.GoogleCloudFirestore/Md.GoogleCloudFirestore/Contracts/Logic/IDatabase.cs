@@ -1,12 +1,13 @@
 ﻿namespace Md.GoogleCloudFirestore.Contracts.Logic
 {
     using System.Threading.Tasks;
+    using Md.Common.Contracts.Database;
     using Md.Common.Contracts.Model;
 
     /// <summary>
     ///     Access to the database.
     /// </summary>
-    public interface IDatabase<T> : IReadOnlyDatabase<T> where T : class
+    public interface IDatabase<T> : IReadOnlyDatabase<T> where T : class, IDatabaseObject
     {
         /// <summary>
         ///     Insert a new object to the database.
