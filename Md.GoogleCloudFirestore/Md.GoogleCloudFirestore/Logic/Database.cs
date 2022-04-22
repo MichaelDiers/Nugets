@@ -58,8 +58,7 @@
         /// <returns>A <see cref="Task{T}" /> whose result is the id of the document.</returns>
         public async Task<string> InsertAsync(IToDictionary data)
         {
-            var documentReference = this.Collection().Document();
-            return await Database<T>.InsertAsync(documentReference, data);
+            return await this.InsertAsync(Guid.NewGuid().ToString(), data);
         }
 
         /// <summary>
