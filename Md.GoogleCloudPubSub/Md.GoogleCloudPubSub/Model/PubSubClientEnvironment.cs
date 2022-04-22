@@ -1,6 +1,8 @@
 ﻿namespace Md.GoogleCloudPubSub.Model
 {
+    using System.ComponentModel.DataAnnotations;
     using Md.Common.Contracts.Model;
+    using Md.Common.DataAnnotations;
     using Md.GoogleCloudPubSub.Contracts.Model;
 
     /// <summary>
@@ -32,16 +34,22 @@
         /// <summary>
         ///     Gets the runtime environment.
         /// </summary>
+        [Required]
+        [NonZeroAndDefinedEnum(typeof(Environment))]
         public Environment Environment { get; set; }
 
         /// <summary>
         ///     Gets the project id.
         /// </summary>
+        [Required]
+        [ProjectId]
         public string ProjectId { get; set; }
 
         /// <summary>
         ///     Gets the name of the topic.
         /// </summary>
+        [Required]
+        [TopicName]
         public string TopicName { get; set; }
     }
 }
